@@ -78,9 +78,11 @@ private:
 	int mCurrMouseY;
 	int mPrevMouseX;
 	int mPrevMouseY;
+	int mPrevMouseZ;
+
 	int mMouseMoveX;
 	int mMouseMoveY;
-
+	int mMouseMoveZ;
 	int mMouseWheel;
 
 	bool mCurrMouseButtons[3];

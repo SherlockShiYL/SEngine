@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp" />
+    <ClCompile Include="GameLevels\EditMap.cpp">
+      <Filter>GameLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevels\Frontend.cpp">
+      <Filter>GameLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevels\Gameplay.cpp">
+      <Filter>GameLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\GameObjectManager.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\Slime.cpp">
+      <Filter>GameObjects\AI\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Skills\BlackHole.cpp">
+      <Filter>GameObjects\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Skills\ShivLighting.cpp">
+      <Filter>GameObjects\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Skills\Skill.cpp">
+      <Filter>GameObjects\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="DataProcessor.cpp" />
+    <ClCompile Include="GameObjects\Enemies\Enemy.cpp">
+      <Filter>GameObjects\AI\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Skills\AttackProjectile.cpp">
+      <Filter>GameObjects\Skills</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageDisplay.cpp" />
+    <ClCompile Include="GameObjects\Buildings\Building.cpp">
+      <Filter>GameObjects\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Source.cpp" />
+    <ClCompile Include="GameObjects\Buildings\LoggingFarm.cpp">
+      <Filter>GameObjects\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\AI\Character.cpp">
+      <Filter>GameObjects\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\AI\TinyBot.cpp">
+      <Filter>GameObjects\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp" />
+    <ClCompile Include="Menu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameLevels\EditMap.h">
+      <Filter>GameLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevels\Frontend.h">
+      <Filter>GameLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevels\Gameplay.h">
+      <Filter>GameLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevels\GameState.h">
+      <Filter>GameLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\GameObjectManager.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\Slime.h">
+      <Filter>GameObjects\AI\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Skills\BlackHole.h">
+      <Filter>GameObjects\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Skills\ShivLighting.h">
+      <Filter>GameObjects\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Skills\Skill.h">
+      <Filter>GameObjects\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Skills\SkillList.h">
+      <Filter>GameObjects\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="DataProcessor.h" />
+    <ClInclude Include="GameObjects\Enemies\Enemy.h">
+      <Filter>GameObjects\AI\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Weapon.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Skills\AttackProjectile.h">
+      <Filter>GameObjects\Skills</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="DamageDisplay.h" />
+    <ClInclude Include="GameObjects\Buildings\Building.h">
+      <Filter>GameObjects\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Buildings\LoggingFarm.h">
+      <Filter>GameObjects\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Source.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\AI\Character.h">
+      <Filter>GameObjects\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\AI\TinyBot.h">
+      <Filter>GameObjects\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuButton.h" />
+    <ClInclude Include="MenuManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GameLevel">
+      <UniqueIdentifier>{1e166a82-20fb-4318-883e-6de1c5ad401e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{2b068b44-28fa-47f6-9a64-5cfe93c5caf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Skills">
+      <UniqueIdentifier>{6e6999b9-ea26-41f4-9a2c-683aebfeed97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{4d220bd0-90f2-4e24-b919-4fdd6c8ea7ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Maps">
+      <UniqueIdentifier>{78fc86bc-455e-4b38-98ff-f972972ce4fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Buildings">
+      <UniqueIdentifier>{c52aae6e-baa4-4ff3-8b48-a486a321d7a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\AI">
+      <UniqueIdentifier>{a2d9efa6-f2c7-4886-88aa-9ae1915519e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\AI\Enemy">
+      <UniqueIdentifier>{809bdaa6-d50f-4927-9a3b-04463b302669}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Data\Home.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="Data\PlayerData.txt">
+      <Filter>Data</Filter>
+    </Text>
+    <Text Include="Data\Maps\ForestMap.txt">
+      <Filter>Data\Maps</Filter>
+    </Text>
+    <Text Include="Data\Maps\ForestMap_Set.txt">
+      <Filter>Data\Maps</Filter>
+    </Text>
+    <Text Include="Data\Maps\IslandMap.txt">
+      <Filter>Data\Maps</Filter>
+    </Text>
+    <Text Include="Data\Maps\IslandMap_Set.txt">
+      <Filter>Data\Maps</Filter>
+    </Text>
+    <Text Include="Data\Maps\TileMap.txt">
+      <Filter>Data\Maps</Filter>
+    </Text>
+    <Text Include="Data\Maps\TileMap_Set.txt">
+      <Filter>Data\Maps</Filter>
+    </Text>
+    <Text Include="Slayer.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sconfig.json" />
+  </ItemGroup>
+</Project>

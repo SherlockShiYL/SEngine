@@ -14,10 +14,12 @@ Agent::Agent(AIWorld& world)
 	, mMaxSpeed{ 0.0f }
 {
 	mWorld.RegisterAgent(this);
+	mWorld.GetQuadrant().RegisterAgent(this);
 }
 
 Agent::~Agent()
 {
+	mWorld.GetQuadrant().UnregisterAgent(this);
 	mWorld.UnregisterAgent(this);
 }
 

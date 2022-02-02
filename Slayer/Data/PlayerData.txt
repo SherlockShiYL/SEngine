@@ -1,0 +1,4 @@
+Name: Sherlock
+HP: 100
+Speed: 100.0
+Damage: 5

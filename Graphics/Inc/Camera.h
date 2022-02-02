@@ -8,7 +8,7 @@ namespace Graphics {
 	Math::Matrix4 ComputePerspectiveMatrix(float n, float f, float fov, float aspect);
 
 // This camera assumes y-axis as up direction always
-class Camera 
+class Camera
 {
 public:
 	Camera();

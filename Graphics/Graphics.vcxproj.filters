@@ -88,6 +88,24 @@
     <ClInclude Include="Inc\AnimationIO.h">
       <Filter>Inc\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\SpriteRenderer.h">
+      <Filter>Inc\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\TextureManager.h">
+      <Filter>Inc\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SpriteCommand.h">
+      <Filter>Inc\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Font.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\TextCommand.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Config.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Inc">
@@ -101,6 +119,12 @@
     </Filter>
     <Filter Include="Src\Animations">
       <UniqueIdentifier>{e2bc9f69-401b-41b6-9502-619df368e1e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\2D">
+      <UniqueIdentifier>{47f49f7f-00ef-4564-86ce-cb70ccf11ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\2D">
+      <UniqueIdentifier>{2577b120-67fa-439d-86d8-365e1fcd696d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +187,21 @@
     </ClCompile>
     <ClCompile Include="Src\AnimationIO.cpp">
       <Filter>Src\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SpriteRenderer.cpp">
+      <Filter>Src\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TextureManager.cpp">
+      <Filter>Src\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Graphics.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Font.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Config.cpp">
+      <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

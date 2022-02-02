@@ -31,6 +31,12 @@
     <Filter Include="Inc\Decision">
       <UniqueIdentifier>{d2badad8-9dcd-4b5c-9ec1-eb46f3af59b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\NEAT">
+      <UniqueIdentifier>{71bebc24-c66e-4b31-8af0-026239758b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\NEAT">
+      <UniqueIdentifier>{04b1df7e-15dc-4051-aa16-4e4184ae5e63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\AI.h">
@@ -114,6 +120,27 @@
     <ClInclude Include="Inc\Graph.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\AIQuadrant.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Config.h">
+      <Filter>Inc\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Genome.h">
+      <Filter>Inc\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\InnovationContainer.h">
+      <Filter>Inc\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\NeuralNet.h">
+      <Filter>Inc\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Population.h">
+      <Filter>Inc\NEAT</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Species.h">
+      <Filter>Inc\NEAT</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -163,6 +190,18 @@
     </ClCompile>
     <ClCompile Include="Src\Graph.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\AIQuadrant.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\InnovationContainer.cpp">
+      <Filter>Src\NEAT</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\NeuralNet.cpp">
+      <Filter>Src\NEAT</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Population.cpp">
+      <Filter>Src\NEAT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

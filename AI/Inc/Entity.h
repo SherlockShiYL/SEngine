@@ -17,18 +17,18 @@ public:
 
 	virtual void Render(Math::Vector2 p) {}
 
-	AIWorld& World() const { return mWorld; }
+	AIWorld& World() const					{ return mWorld; }
 
 	void SetBlocked(bool b = true);
 
-	Math::Vector2& Position() { return mPosition; }
-	const Math::Vector2& Position() const { return mPosition; }
+	Math::Vector2& Position()				{ return mPosition; }
+	const Math::Vector2& Position() const	{ return mPosition; }
 
-	uint32_t& Type() { return mType; }
-	const uint32_t& Type() const { return mType; }
+	uint32_t& Type()						{ return mType; }
+	const uint32_t& Type() const			{ return mType; }
 
-	uint32_t& Id() { return mId; }
-	const uint32_t& Id() const { return mId; }
+	uint32_t& Id()							{ return mId; }
+	const uint32_t& Id() const				{ return mId; }
 
 protected:
 	AIWorld& mWorld;

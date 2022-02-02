@@ -10,7 +10,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "Hello Window", 1280, 720);
 }
 
 void GameApp::OnTerminate()
@@ -18,7 +18,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	if (mWindow.ProcessMessage())
 	{

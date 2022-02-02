@@ -64,8 +64,8 @@ public:
 	std::vector<Node> GetPath();
 	std::list<Node> GetCloseList();
 
-	uint32_t GetColumns() const { return mColumns; }
-	uint32_t GetRows() const { return mRows; }
+	uint32_t GetColumns() const			{ return mColumns; }
+	uint32_t GetRows() const			{ return mRows; }
 
 	//void RenderPath(float tileSize);
 

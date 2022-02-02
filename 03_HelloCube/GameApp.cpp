@@ -50,7 +50,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "HelloCube", 1280, 720);
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 
@@ -73,7 +73,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	Input::InputSystem::Get()->Update();
 	if (Input::InputSystem::Get()->IsKeyDown(Input::KeyCode::LEFT))

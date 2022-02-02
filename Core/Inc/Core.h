@@ -11,6 +11,7 @@
 #include "HandlePool.h"
 #include "Meta.h"
 #include "MetaRegistration.h"
+#include "Timer.h"
 #include "TypedAllocator.h"
 #include "Window.h"
 

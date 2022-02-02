@@ -16,7 +16,7 @@ Matrix4 Animation::GetTransform(float deltaTime)
 	}
 	// Position
 	Vector3 position;
-	uint32_t num = mPosKeyframes.size();
+	uint32_t num = static_cast<uint32_t>(mPosKeyframes.size());
 	if (num > 1)
 	{
 		if (deltaTime < mPosKeyframes[mPosKeyframes.size() - 1].mTime)
@@ -48,7 +48,7 @@ Matrix4 Animation::GetTransform(float deltaTime)
 
 	// Scale
 	Vector3 scale;
-	num = mScaleKeyframes.size();
+	num = static_cast<uint32_t>(mScaleKeyframes.size());
 	if (num > 1)
 	{
 		if (deltaTime < mScaleKeyframes[mScaleKeyframes.size() - 1].mTime)
@@ -80,7 +80,7 @@ Matrix4 Animation::GetTransform(float deltaTime)
 
 	// Rotation
 	Quaternion rotation;
-	num = mQuatKeyframes.size();
+	num = static_cast<uint32_t>(mQuatKeyframes.size());
 	if (num > 1)
 	{
 		if (deltaTime < mQuatKeyframes[mQuatKeyframes.size() - 1].mTime)

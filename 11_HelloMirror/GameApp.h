@@ -13,7 +13,7 @@ public:
 private:
 	void OnInitialize() override;
 	void OnTerminate() override;
-	void OnUpdate() override;
+	void OnUpdate(bool(*GameLoop)(float)) override;
 
 	void GetBoneMatrices(S::Graphics::Bone* bone, float deltaTime);
 	void DrawBone(S::Graphics::Bone* bone);

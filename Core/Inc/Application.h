@@ -13,29 +13,29 @@ public:
 	Application(const Application&) = delete;
 	Application& operator=(const Application&) = delete;
 
-	void Initialize(HINSTANCE instance, LPCSTR appName);
+	void Initialize(HINSTANCE instance, LPCSTR configFileName);
 	void Terminate();
 
 	void HookWindow(HWND hWnd);
 	void UnhookWindow();
 
-	void Update();
+	void Update(bool(*GameLoop)(float));
 
-	void Kill()						{ mRunning = false; }
+	void Kill()								{ mRunning = false; }
 
-	HINSTANCE GetInstance() const	{ return mInstance; }
-	HWND GetWindow() const			{ return mWindow; }
-	const char* GetAppName() const	{ return mAppName.c_str(); }
-	bool IsRunning() const			{ return mRunning; }
+	HINSTANCE GetInstance() const			{ return mInstance; }
+	HWND GetWindow() const					{ return mWindow; }
+	const char* GetConfigFileName() const	{ return mConfigFileName.c_str(); }
+	bool IsRunning() const					{ return mRunning; }
 
 private:
 	virtual void OnInitialize() = 0;
 	virtual void OnTerminate() = 0;
-	virtual void OnUpdate() = 0;
+	virtual void OnUpdate(bool (*GameLoop)(float)) = 0;
 
 	HINSTANCE mInstance;
 	HWND mWindow;
-	std::string mAppName;
+	std::string mConfigFileName;
 	bool mRunning;
 };
 

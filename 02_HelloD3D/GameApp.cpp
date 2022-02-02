@@ -23,7 +23,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "Hello D3D", 1280, 720);
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 
 	float WHRate = 1280.0f / 720.0f;
@@ -88,7 +88,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	if (mWindow.ProcessMessage())
 	{

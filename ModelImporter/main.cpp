@@ -455,7 +455,7 @@ int main(int argc, char* argv[])
 	}
 
 	for (auto& bone : bones)
-		SafeDelete(bone);
+		S::SafeDelete(bone);
 	bones.clear();
 	boneIndexMap.clear();
 	printf("All Done!\n");

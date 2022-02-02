@@ -2,6 +2,7 @@
 #define INCLUDED_AI_AIWORLD_H
 
 #include "Agent.h"
+#include "AIQuadrant.h"
 #include "Graph.h"
 #include "Entity.h"
 
@@ -14,9 +15,6 @@ public:
 	typedef std::vector<Geometry::Circle> Obstacles;
 	typedef std::vector<Geometry::LineSegment2D> Walls;
 
-	AIWorld();
-	~AIWorld();
-
 	void RegisterAgent(Agent* agent);
 	void UnregisterAgent(Agent* agent);
 
@@ -25,15 +23,19 @@ public:
 
 	AgentList GetNeighborhood(const Geometry::Circle& range);
 	EntityList GetEntities(uint32_t type);
+	Agent* GetOneAgent(uint32_t type);
 
 	void AddObstacles(const Geometry::Circle& obstacle);
-	const Obstacles& GetObstacles() const { return mObstacles; }
+	const Obstacles& GetObstacles() const		{ return mObstacles; }
 
 	void AddWall(const Geometry::LineSegment2D& wall);
-	const Walls& GetWalls() const { return mWalls; }
+	const Walls& GetWalls() const				{ return mWalls; }
 
 	Graph& GetNavGraph() { return mNavGraph; }
-	const Graph& GetNavGraph() const { return mNavGraph; }
+	const Graph& GetNavGraph() const			{ return mNavGraph; }
+
+	AIQuadrant& GetQuadrant() { return mAIQuadrant; }
+	const AIQuadrant& GetQuadrant() const		{ return mAIQuadrant; }
 
 	bool HasLOS(const Geometry::LineSegment2D& line) const;
 
@@ -54,6 +56,7 @@ private:
 	Obstacles mObstacles;
 	Walls mWalls;
 	Graph mNavGraph;
+	AIQuadrant mAIQuadrant;
 	bool mInitialized;
 	EntityList mEntities;
 };

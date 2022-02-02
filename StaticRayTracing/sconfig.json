@@ -1,0 +1,7 @@
+{
+  "AppName": "Static Ray Tracing",
+  "WinWidth": 1280,
+  "WinHeight": 720,
+  "FullScreen": false,
+  "TexturePath": "../Assets/Images/"
+}

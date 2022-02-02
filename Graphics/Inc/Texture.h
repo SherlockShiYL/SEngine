@@ -27,6 +27,9 @@ public:
 	void BindVS(uint32_t slot = 0) const;
 	void BindPS(uint32_t slot = 0) const;
 
+	uint32_t GetWidth() const { return mTextureDescription.Width; }
+	uint32_t GetHeight() const { return mTextureDescription.Height; }
+
 	ID3D11ShaderResourceView* GetShaderResourceView() { return mShaderResourceView; }
 	
 private:

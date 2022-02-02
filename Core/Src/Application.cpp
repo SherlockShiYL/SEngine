@@ -15,10 +15,10 @@ Application::~Application()
 {
 }
 
-void Application::Initialize(HINSTANCE instance, LPCSTR appName)
+void Application::Initialize(HINSTANCE instance, LPCSTR configFileName)
 {
 	mInstance = instance;
-	mAppName = appName;
+	mConfigFileName = configFileName;
 
 	CoInitialize(nullptr);
 	OnInitialize();
@@ -40,7 +40,7 @@ void Application::UnhookWindow()
 	mWindow = nullptr;
 }
 
-void Application::Update()
+void Application::Update(bool(*GameLoop)(float))
 {
-	OnUpdate();
+	OnUpdate(GameLoop);
 }

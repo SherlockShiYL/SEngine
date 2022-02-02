@@ -1,5 +1,10 @@
 #include "GameApp.h"
 
+bool GameLoop(float deltaTime)
+{
+	return false;
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	GameApp myApp;
@@ -7,7 +12,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	while (myApp.IsRunning())
 	{
-		myApp.Update();
+		myApp.Update(GameLoop);
 	}
 
 	myApp.Terminate();

@@ -124,7 +124,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	{
 		Input::InputSystem::Get()->Update();

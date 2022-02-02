@@ -1,0 +1,7 @@
+{
+  "AppName": "2D Marble",
+  "WinWidth": 600,
+  "WinHeight": 720,
+  "FullScreen": false,
+  "TexturePath": "../Assets/Images/"
+}

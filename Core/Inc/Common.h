@@ -13,10 +13,12 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <codecvt>
 #include <cstdio>
 #include <cstdint>
 #include <functional>
 #include <list>
+#include <locale>
 #include <numeric>
 #include <map>
 #include <memory>

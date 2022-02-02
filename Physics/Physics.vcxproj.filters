@@ -27,6 +27,12 @@
     <ClInclude Include="Inc\Constrains.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\CircleCollider.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\ColliderManager.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -36,6 +42,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\Constrains.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ColliderManager.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Physics.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

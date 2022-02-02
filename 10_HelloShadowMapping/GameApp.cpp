@@ -73,7 +73,7 @@ void GameApp::DepthDraw()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "ShadowMapping", 1280, 720);
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Graphics::SimpleDraw::Initialize(1000000);
@@ -152,7 +152,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	{
 		Input::InputSystem::Get()->Update();

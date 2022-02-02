@@ -5,7 +5,7 @@
 
 S::Math::Vector2 S::AI::SeparationBehavior::Calculate(S::AI::Agent & agent)
 {
-	AgentList agentList = agent.World().GetNeighborhood(S::Geometry::Circle{ agent.Position(), agent.MaxSpeed()*10.0f });
+	AgentList agentList = agent.World().GetNeighborhood(S::Geometry::Circle{ agent.Position(), agent.MaxSpeed() });
 	S::Math::Vector2 DesiredVelocity{ 0.0f,0.0f };
 	for (auto& a : agentList)
 	{

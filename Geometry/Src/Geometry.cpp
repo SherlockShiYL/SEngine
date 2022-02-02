@@ -22,25 +22,6 @@ bool Geometry::PointInCircle(const Vector2& point, const Circle& circle)
 	return distSqr < radiusSqr;
 }
 
-bool Geometry::Intersect(const Circle& c0, const Circle& c1)
-{
-	const float radSqr = (c0.radius + c1.radius)*(c0.radius + c1.radius);
-	return (DistanceSqr(c0.center, c1.center) < radSqr);
-}
-
-bool Geometry::Intersect(const Rect& r0, const Rect& r1)
-{
-	if (r0.left > r1.right)
-		return false;
-	else if (r0.top > r1.bottom)
-		return false;
-	else if (r0.right < r1.left)
-		return false;
-	else if (r0.bottom < r1.top)
-		return false;
-	return true;
-}
-
 bool Geometry::Intersect(const LineSegment2D& a, const LineSegment2D& b)
 {
 	// http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
@@ -75,9 +56,41 @@ bool Geometry::Intersect(const LineSegment2D& a, const LineSegment2D& b)
 	return true;
 }
 
+bool Geometry::Intersect(const Circle& c0, const Circle& c1)
+{
+	const float radSqr = (c0.radius + c1.radius)*(c0.radius + c1.radius);
+	return (DistanceSqr(c0.center, c1.center) < radSqr);
+}
+
+bool Geometry::Intersect(const Rect& r0, const Rect& r1)
+{
+	if (r0.left > r1.right)
+		return false;
+	else if (r0.top > r1.bottom)
+		return false;
+	else if (r0.right < r1.left)
+		return false;
+	else if (r0.bottom < r1.top)
+		return false;
+	return true;
+}
+
+bool Geometry::Intersect(const LineSegment2D& l, const Rect& r)
+{
+	if (Geometry::Intersect(l, LineSegment2D{ r.left, r.bottom, r.left, r.top }))
+		return true;
+	else if (Geometry::Intersect(l, LineSegment2D{ r.right, r.bottom, r.right, r.top }))
+		return true;
+	else if (Geometry::Intersect(l, LineSegment2D{ r.left, r.top, r.right, r.top }))
+		return true;
+	else if (Geometry::Intersect(l, LineSegment2D{ r.left, r.bottom, r.right, r.bottom }))
+		return true;
+	return false;
+}
+
 bool Geometry::Intersect(const LineSegment2D& l, const Circle& c)
 {
-	return S::Geometry::Intersect(c, l);
+	return Geometry::Intersect(c, l);
 }
 
 bool Geometry::Intersect(const Circle& c, const LineSegment2D& l)
@@ -114,7 +127,7 @@ bool Geometry::Intersect(const Circle& c, const LineSegment2D& l)
 
 bool Geometry::Intersect(const Circle& c, const Rect& r)
 {
-	return S::Geometry::Intersect(r, c);
+	return Geometry::Intersect(r, c);
 }
 
 bool Geometry::Intersect(const Rect& r, const Circle& c)
@@ -307,7 +320,38 @@ bool Geometry::Intersect(const Ray& ray, const OBB& obb, float& distEntry, float
 	Vector3 dir = TransformNormal(ray.dir, matWorldInv);
 
 	AABB aabb(Vector3::Zero(), obb.extend);
-	return S::Geometry::Intersect(Ray(org, dir), aabb, distEntry, distExit);
+	return Geometry::Intersect(Ray(org, dir), aabb, distEntry, distExit);
+}
+
+bool Geometry::Intersect(const Ray & ray, const Sphere & sphere)
+{
+	Vector3 oc = ray.org - sphere.center;
+	float a = Dot(ray.dir, ray.dir);
+	float b = 2.0f * Dot(oc, ray.dir);
+	float c = Dot(oc, oc) - sphere.radius * sphere.radius;
+	float discriminant = b * b - 4.0f * a*c;
+	if (discriminant < 0.0f)
+	{
+		return false;
+	}
+	else
+	{
+		float numerator = -b - sqrt(discriminant);
+		if (numerator > 0.0f)
+		{
+			return true;
+		}
+
+		numerator = -b + sqrt(discriminant);
+		if (numerator > 0.0f)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
 
 bool Geometry::Intersect(const Vector3& point, const AABB& aabb)
@@ -332,7 +376,7 @@ bool Geometry::Intersect(const Vector3& point, const OBB& obb)
 	AABB aabb(Vector3::Zero(), obb.extend);
 
 	// Test against local AABB
-	return S::Geometry::Intersect(localPoint, aabb);
+	return Geometry::Intersect(localPoint, aabb);
 }
 
 /*void Geometry::GetCorners(const OBB & obb, std::vector<Vector3>& corners)
@@ -416,9 +460,116 @@ bool Geometry::GetContactPoint(const Ray & ray, const OBB & obb, Vector3 & point
 	return true;
 }
 
-Vector3 Geometry::GetClosestPoint(const Ray & ray, const Vector3 & point)
+Vector2 Geometry::GetContactPoint(const LineSegment2D& a, const LineSegment2D& b)
+{
+	Vector2 result;
+	if (Intersect(a, b))
+	{
+		if (Abs(a.from.x - a.to.x) <= 0.00003f)
+		{
+			float bSlope = (b.from.y - b.to.y) / (b.from.x - b.to.x);
+			float bK = b.from.y - bSlope * b.from.x;
+			result.x = a.from.x;
+			result.y = result.x*bSlope + bK;
+		}
+		else
+		{
+			float aSlope = (a.from.y - a.to.y) / (a.from.x - a.to.x);
+			float aK = a.from.y - aSlope * a.from.x;
+			if (Abs(b.from.x - b.to.x) <= 0.00003f)
+			{
+				result.x = b.from.x;
+				result.y = result.x*aSlope + aK;
+			}
+			else
+			{
+				float bSlope = (b.from.y - b.to.y) / (b.from.x - b.to.x);
+				float bK = b.from.y - bSlope * b.from.x;
+				result.x = (bK - aK) / (aSlope - bSlope);
+				result.y = result.x*aSlope + aK;
+			}
+		}
+	}
+	return result;
+}
+
+Vector2 Geometry::GetClosestPoint(const LineSegment2D& l, const Rect& r)
+{
+	float dis = FLT_MAX;
+	LineSegment2D line;
+	Math::Vector2 result{ FLT_MAX,FLT_MAX }, temp; // Guessing DrawScreenCircle might get ERROR, max float + float
+	if (Geometry::Intersect(l, line = LineSegment2D{ r.left, r.bottom, r.left, r.top }))
+	{
+		result = GetContactPoint(l, line);
+		dis = Math::DistanceSqr(l.from, result);
+	}
+	if (Geometry::Intersect(l, line = LineSegment2D{ r.right, r.bottom, r.right, r.top }))
+	{
+		temp = GetContactPoint(l, line);
+		float d = Math::DistanceSqr(l.from, temp);
+		if (d < dis)
+		{
+			dis = d;
+			result = temp;
+		}
+	}
+	if (Geometry::Intersect(l, line = LineSegment2D{ r.left, r.top, r.right, r.top }))
+	{
+		temp = GetContactPoint(l, line);
+		float d = Math::DistanceSqr(l.from, temp);
+		if (d < dis)
+		{
+			dis = d;
+			result = temp;
+		}
+	}
+	if (Geometry::Intersect(l, line = LineSegment2D{ r.left, r.bottom, r.right, r.bottom }))
+	{
+		temp = GetContactPoint(l, line);
+		float d = Math::DistanceSqr(l.from, temp);
+		if (d < dis)
+		{
+			dis = d;
+			result = temp;
+		}
+	}
+	return result;
+}
+
+Vector3 Geometry::GetClosestPoint(const Ray& ray, const Vector3& point)
 {
 	Vector3 orgToPoint = point - ray.org;
 	float d = Dot(orgToPoint, ray.dir);
 	return ray.org + (ray.dir * d);
+}
+
+Vector3 Geometry::GetClosestPoint(const Ray& ray, const Sphere& sphere)
+{
+	Vector3 oc = ray.org - sphere.center;
+	float a = Dot(ray.dir, ray.dir);
+	float b = 2.0f * Dot(oc, ray.dir);
+	float c = Dot(oc, oc) - sphere.radius * sphere.radius;
+	float discriminant = b * b - 4.0f * a*c;
+	if (discriminant < 0.0f)
+	{
+		return -1.0f;
+	}
+	else
+	{
+		float numerator = -b - sqrt(discriminant);
+		if (numerator > 0.0f)
+		{
+			return numerator / (2.0f * a);
+		}
+
+		numerator = -b + sqrt(discriminant);
+		if (numerator > 0.0f)
+		{
+			return numerator / (2.0f * a);
+		}
+		else
+		{
+			return -1.0f;
+		}
+	}
 }

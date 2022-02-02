@@ -74,7 +74,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	// deltaTime
 	static auto prevTime = std::chrono::high_resolution_clock::now();

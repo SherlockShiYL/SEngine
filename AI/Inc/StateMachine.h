@@ -57,14 +57,14 @@ namespace AI {
 	template <class AgentType>
 	void StateMachine<AgentType>::Update(float deltaTime)
 	{
-		XASSERT(mCurrentState != nullptr, "[StateMachine] mCurrentState is null!");
+		ASSERT(mCurrentState != nullptr, "[StateMachine] mCurrentState is null!");
 		mCurrentState->Update(mAgent, deltaTime);
 	}
 
 	template <class AgentType>
 	void StateMachine<AgentType>::ChangeState(uint32_t index)
 	{
-		XASSERT(index < (uint32_t)mStates.size(), "[StateMachine] Invalid index %d.", index);
+		ASSERT(index < (uint32_t)mStates.size(), "[StateMachine] Invalid index %d.", index);
 		if (mCurrentState)
 		{
 			mCurrentState->Exit(mAgent);

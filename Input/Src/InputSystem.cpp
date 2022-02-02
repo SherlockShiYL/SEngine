@@ -80,6 +80,7 @@ LRESULT CALLBACK Input::InputSystemMessageHandler(HWND window, UINT message, WPA
 			}
 			case WM_MOUSEWHEEL:
 			{
+				sInputSystem->mPrevMouseZ = sInputSystem->mMouseWheel;
 				sInputSystem->mMouseWheel += GET_WHEEL_DELTA_WPARAM(wParam);
 				break;
 			}
@@ -155,8 +156,11 @@ InputSystem::InputSystem()
 	, mCurrMouseY(-1)
 	, mPrevMouseX(-1)
 	, mPrevMouseY(-1)
+	, mPrevMouseZ(-1)
 	, mMouseMoveX(0)
 	, mMouseMoveY(0)
+	, mMouseMoveZ(0)
+	, mMouseWheel(0)
 	, mMouseLeftEdge(false)
 	, mMouseRightEdge(false)
 	, mMouseTopEdge(false)
@@ -279,6 +283,9 @@ void InputSystem::Update()
 	mPrevMouseX = mCurrMouseX;
 	mPrevMouseY = mCurrMouseY;
 
+	mMouseMoveZ = sInputSystem->mMouseWheel - sInputSystem->mPrevMouseZ;
+	sInputSystem->mPrevMouseZ = sInputSystem->mMouseWheel;
+
 	// Store the previous mouse state
 	for (int i = 0; i < 3; ++i)
 	{
@@ -355,7 +362,7 @@ int InputSystem::GetMouseMoveY() const
 
 int InputSystem::GetMouseMoveZ() const
 {
-	return mMouseWheel;
+	return mMouseMoveZ;
 }
 
 bool InputSystem::IsGamePadButtonDown(GamePadButton button) const

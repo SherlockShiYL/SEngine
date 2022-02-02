@@ -63,6 +63,9 @@
     <ClInclude Include="Inc\MetaUtil.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Timer.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -93,6 +96,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\MetaType.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Timer.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

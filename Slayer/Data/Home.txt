@@ -1,0 +1,24 @@
+Type: 1
+Amount: 10
+HP: 20
+Damage: 10
+AttackSpeed: 1.0
+Speed: 100.0
+MoveCD: 1.5
+MoveTime: 0.5
+Radius: 20.0
+Position: 100.0 100.0
+150.0 100.0
+180.0 100.0
+220.0 100.0
+260.0 100.0
+300.0 100.0
+150.0 200.0
+150.0 300.0
+150.0 400.0
+150.0 500.0
+
+
+Name: Slime
+Name: Bone_Pawn
+Name: Bone_Archer

@@ -36,7 +36,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "HelloPointLight", 1280, 720);
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Graphics::Gui::Initialize(mWindow.GetWindowHandle());
@@ -74,7 +74,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	{
 		Input::InputSystem::Get()->Update();

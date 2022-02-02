@@ -39,4 +39,14 @@
 // Path Planner
 #include "PathPlanner.h"
 
+#include "AIQuadrant.h"
+
+// NEAT
+#include "Config.h"
+#include "Genome.h"
+#include "InnovationContainer.h"
+#include "NeuralNet.h"
+#include "Population.h"
+#include "Species.h"
+
 #endif // !INCLUDED_AI_H

@@ -1,3 +1,6 @@
+using namespace S;
+using namespace S::AI;
+
 template <typename AgentType>
 GoalComposite<AgentType>::GoalComposite(AgentType& agent)
 	: Goal<AgentType>(agent)
@@ -24,7 +27,7 @@ void GoalComposite<AgentType>::RemoveAllSubgoals()
 		if (goal != nullptr)
 		{
 			goal->Terminate();
-			X::SafeDelete(goal);
+			SafeDelete(goal);
 		}
 	}
 	mSubgoals.clear();
@@ -44,7 +47,7 @@ typename Goal<AgentType>::Status GoalComposite<AgentType>::ProcessSubgoals()
 		}
 
 		goal->Terminate();
-		X::SafeDelete(goal);
+		SafeDelete(goal);
 		mSubgoals.pop_front();
 	}
 

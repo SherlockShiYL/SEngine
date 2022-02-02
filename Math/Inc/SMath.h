@@ -14,6 +14,10 @@
 
 namespace S {
 namespace Math {
+
+static std::random_device myRandomDevice{};
+static std::mt19937 myRandomEngine{ myRandomDevice() };
+
 extern const float kPi;
 extern const float kTwoPi;
 extern const float kPiByTwo;
@@ -73,6 +77,8 @@ inline float DistanceXZ(const Vector3& a, const Vector3& b)			{ return Sqrt(Dist
 
 inline float Dot(const Vector2& a, const Vector2& b)				{ return (a.x * b.x) + (a.y * b.y); }
 inline float Dot(const Vector3& a, const Vector3& b)				{ return (a.x * b.x) + (a.y * b.y) + (a.z * b.z); }
+inline float Determinant(const Vector2& a, const Vector2& b)		{ return a.x * b.y - a.y * b.x; }
+inline float Angle(const Vector2& a, const Vector2& b)				{ return atan2(Determinant(a, b), Dot(a, b)); }
 inline Vector3 Cross(const Vector3& a, const Vector3& b)			{ return Vector3{ (a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z), (a.x * b.y) - (a.y * b.x) }; }
 inline Vector2 Project(const Vector2& v, const Vector2& n)			{ return n * (Dot(v, n) / Dot(n, n)); }
 inline Vector3 Project(const Vector3& v, const Vector3& n)			{ return n * (Dot(v, n) / Dot(n, n)); }
@@ -256,6 +262,91 @@ Vector3 GetBarycentric(const Vector2& a, const Vector2& b, const Vector2& c, con
 bool PointInTriangle(const Vector2& point, const Vector2& a, const Vector2& b, const Vector2& c);
 
 Vector3 Mean(const Vector3* v, uint32_t count);
+
+inline int Random()
+{
+	return std::uniform_int_distribution<>{ 0, (std::numeric_limits<int>::max)() }(myRandomEngine);
+}
+
+inline int Random(int min, int max)
+{
+	return std::uniform_int_distribution<>{ min, max }(myRandomEngine);
+}
+
+inline float RandomFloat()
+{
+	return std::uniform_real_distribution<float>{ 0, 1.0f }(myRandomEngine);
+}
+
+inline float RandomFloat(float min, float max)
+{
+	return std::uniform_real_distribution<float>{ min, max }(myRandomEngine);
+}
+
+inline double RandomDouble()
+{
+	return std::uniform_real_distribution<double>{ 0, 1.0 }(myRandomEngine);
+}
+
+inline double RandomDouble(double min, double max)
+{
+	return std::uniform_real_distribution<double>{ min, max }(myRandomEngine);
+}
+
+inline Vector2 RandomVector2()
+{
+	return Math::Vector2
+	(
+		RandomFloat(),
+		RandomFloat()
+	);
+}
+
+inline Vector2 RandomVector2(const Math::Vector2& min, const Math::Vector2& max)
+{
+	return Math::Vector2
+	(
+		RandomFloat(min.x, max.x),
+		RandomFloat(min.y, max.y)
+	);
+}
+
+//inline Vector2 RandomUnitCircle()
+//{
+//	return Math::Normalize(Math::Vector2(
+//		RandomFloat(-1.0f, 1.0f) + 0.001f,
+//		RandomFloat(-1.0f, 1.0f))
+//	);
+//}
+
+inline Vector3 RandomVector3()
+{
+	return Math::Vector3
+	(
+		RandomFloat(),
+		RandomFloat(),
+		RandomFloat()
+	);
+}
+
+inline Vector3 RandomVector3(const Math::Vector3& min, const Math::Vector3& max)
+{
+	return Math::Vector3
+	(
+		RandomFloat(min.x, max.x),
+		RandomFloat(min.y, max.y),
+		RandomFloat(min.z, max.z)
+	);
+}
+
+//inline Vector3 RandomUnitSphere()
+//{
+//	return Math::Normalize(Math::Vector3(
+//		RandomFloat(-1.0f, 1.0f) + 0.001f,
+//		RandomFloat(-1.0f, 1.0f),
+//		RandomFloat(-1.0f, 1.0f))
+//	);
+//}
 
 } // namespace Math
 } // namespace S

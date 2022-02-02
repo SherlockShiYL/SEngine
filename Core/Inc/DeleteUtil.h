@@ -1,6 +1,11 @@
 #ifndef INCLUDED_CORE_DELETEUTIL_H
 #define INCLUDED_CORE_DELETEUTIL_H
 
+namespace S {
+
+namespace Graphics {
+	using TextureId = std::size_t;
+}
 template <class T>
 inline void SafeDelete(T*& ptr)
 {
@@ -24,5 +29,7 @@ inline void SafeRelease(T*& ptr)
 		ptr = nullptr;
 	}
 }
+
+} // namespace S
 
 #endif // !INCLUDED_CORE_DELETEUTIL_H

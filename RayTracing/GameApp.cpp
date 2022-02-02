@@ -45,14 +45,14 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720); //1280
+	mWindow.Initialize(GetInstance(), "RayTracing", 1280, 720); //1280
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Graphics::SimpleDraw::Initialize(1000000);
 	Graphics::Gui::Initialize(mWindow.GetWindowHandle());
 
 	Graphics::MeshBuilder::GenerateSphere(mSphereMesh, 256u, 129u);
-	//mModelLoader.LoadOBJVertex("../Assets/Models/Duck/duck.txt", 0.05f, mSphereMesh);
+	//Graphics::ModelLoader::LoadOBJVertex("../Assets/Models/Duck/duck.txt", 0.05f, mSphereMesh);
 	mSphereMeshBuffer.Initialize(mSphereMesh);
 
 	mNormalTexture.Initialize("../Assets/Images/earth_normal.jpg");
@@ -106,7 +106,7 @@ void GameApp::OnTerminate()
 	mWindow.Terminate();
 }
 
-void GameApp::OnUpdate()
+void GameApp::OnUpdate(bool(*GameLoop)(float))
 {
 	{
 		Input::InputSystem::Get()->Update();
