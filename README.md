@@ -2,7 +2,7 @@
 Personal 3D Game Engine
 C++
 
-# Libraries:
+## Libraries:
 - AI
 - Core
 - Geometry
@@ -13,7 +13,7 @@ C++
 - Physics
 - GameEngine.
 
-# Projects:
+## Projects:
 - num_Hello* in class 3D project.
 - Marble: TCP LAN Game. There are server and client exe files.
 - DriverSimulator: Use NEAT to simulate drivers driving a car.
