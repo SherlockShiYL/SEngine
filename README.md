@@ -3,15 +3,26 @@ Personal 3D Game Engine
 C++
 
 ## Libraries:
-- AI
+- AI:
+  - Steering Behaviors:
+    - Alignment
+    - Arrive
+    - Cohesion
+    - Obstacle Avoidance
+    - Seek
+    - Separation
+  - NEAT
+  - State Machine
+  - BFS, DFS, Dijkstra, Astar, JPS
 - Core
 - Geometry
 - Graphics
 - Input
 - Math
 - Network
+  - TCP, UDP
 - Physics
-- GameEngine.
+- GameEngine
 
 ## Projects:
 - num_Hello* in class 3D project.
