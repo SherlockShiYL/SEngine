@@ -282,7 +282,7 @@ bool RunNEAT(float deltaTime)
 	txt = "Total Time: " + std::to_string(totalTime);
 	S::Graphics::DrawScreenText(txt.c_str(), 10.0f, 90.0f, 20.0f, S::Math::Vector4::White());
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < DESTINATIONNUM; i++)
 	{
 		S::Graphics::DrawScreenCircle({ destinationList[i] + worldPosition,40.0f }, S::Math::Vector4::Orange());
 	}
