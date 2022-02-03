@@ -83,6 +83,247 @@ void Graph::hInsertOpenList(Node& node)
 	}
 }
 
+bool Graph::CheckNext(Coord coord, int x, int y)
+{
+	coord.x += x;
+	coord.y += y;
+
+	if (coord.x < 0 || coord.x >= mColumns || coord.y < 0 || coord.y >= mRows)
+	{
+		return false;
+	}
+	if (GetNode(coord).blocked)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool Graph::HVScan(Coord& parentCoord, const Coord end, int x, int y, CostFunc g, HeuristicFunc h, uint32_t& direction)
+{
+	bool nodeCreated{ false };
+
+	if (CheckNext(parentCoord, x, y))
+	{
+		while (!nodeCreated)
+		{
+			parentCoord.x += x;
+			parentCoord.y += y;
+
+			if (parentCoord == end)
+			{
+				return true;
+			}
+			if (CheckNext(parentCoord, x, y))
+			{
+				if (!CheckNext(parentCoord, y, x) && CheckNext(parentCoord, y + x, x + y))
+				{
+					direction |= GetDirection(x, y);
+					direction |= GetDirection(x, x);
+					direction |= GetDirection(y, y);
+					direction -= SearchDirection::Origin;
+					nodeCreated = true;
+				}
+				if (!CheckNext(parentCoord, -y, -x) && CheckNext(parentCoord, -y + x, -x + y))
+				{
+					direction |= GetDirection(x, y);
+					direction |= GetDirection(x, -x);
+					direction |= GetDirection(-y, y);
+					direction -= SearchDirection::Origin;
+					nodeCreated = true;
+				}
+			}
+			else
+			{
+				return nodeCreated;
+			}
+		}
+	}
+	return nodeCreated;
+}
+
+bool Graph::DiagonalScan(const Coord parentCoord, const Coord end, const int x, const int y, CostFunc g, HeuristicFunc h)
+{
+	ASSERT(x != 0 && y != 0, "Search Direction is not Diagonal.");
+
+	Coord current{ parentCoord };
+	bool nodeCreated{ false };
+
+	if (CheckNext(current, x, y))
+	{
+		while (!nodeCreated)
+		{
+			if (CheckNext(current, x, 0) || CheckNext(current, 0, y))
+			{
+				current.x += x;
+				current.y += y;
+
+				if (current == end)
+				{
+					// Found
+					JPSSetNode(parentCoord, current, 0u, g, h);
+					return true;
+				}
+
+
+				if (GetNode({ current.x - x,current.y }).blocked)
+				{
+					if (CheckNext(current, 0, y) && CheckNext(current, -x, y))
+					{
+						uint32_t tempDirection{ 0 };
+						tempDirection |= GetDirection(0, y);
+						tempDirection |= GetDirection(-x, y);
+						tempDirection |= GetDirection(x, y);
+						tempDirection |= GetDirection(x, 0);
+						JPSSetNode(parentCoord, current, tempDirection, g, h);
+						nodeCreated = true;
+					}
+				}
+				else if (GetNode({ current.x ,current.y - y }).blocked)
+				{
+					if (CheckNext(current, x, 0) && CheckNext(current, x, -y))
+					{
+						uint32_t tempDirection{ 0 };
+						tempDirection |= GetDirection(x, 0);
+						tempDirection |= GetDirection(x, -y);
+						tempDirection |= GetDirection(x, y);
+						tempDirection |= GetDirection(0, y);
+						JPSSetNode(parentCoord, current, tempDirection, g, h);
+						nodeCreated = true;
+					}
+				}
+				if (!CheckNext(current, x, y))
+				{
+					uint32_t tempDirection{ 0u };
+					tempDirection |= GetDirection(x, 0);
+					tempDirection |= GetDirection(0, y);
+					JPSSetNode(parentCoord, current, tempDirection, g, h);
+					return false;
+				}
+				if (!nodeCreated)
+				{
+					bool tempCreated{ false };
+					Coord refCurrent1 = current;
+					Coord refCurrent2 = current;
+					uint32_t tempDirection1{ 0 };
+					uint32_t tempDirection2{ 0 };
+					if (HVScan(refCurrent1, end, x, 0, g, h, tempDirection1))
+					{
+						JPSSetNode(parentCoord, current, GetDirection(x, y), g, h);
+						tempCreated = true;
+						JPSSetNode(current, refCurrent1, tempDirection1, g, h);
+					}
+					if (HVScan(refCurrent2, end, 0, y, g, h, tempDirection2))
+					{
+						if (!tempCreated)
+						{
+							JPSSetNode(parentCoord, current, GetDirection(x, y), g, h);
+							tempCreated = true;
+						}
+						JPSSetNode(current, refCurrent2, tempDirection2, g, h);
+					}
+					if (tempCreated)
+					{
+						return true;
+					}
+				}
+			}
+			else
+				break;
+		}
+	}
+	return false;
+}
+
+Graph::SearchDirection AI::Graph::GetDirection(int x, int y)
+{
+	switch (x)
+	{
+	case -1:
+		switch (y)
+		{
+		case -1:
+			return SearchDirection::UL;
+		case 0:
+			return SearchDirection::Left;
+		case 1:
+			return SearchDirection::DL;
+		default:
+			return SearchDirection::Origin;
+		}
+	case 0:
+		switch (y)
+		{
+		case -1:
+			return SearchDirection::Up;
+		case 1:
+			return SearchDirection::Down;
+		default:
+			return SearchDirection::Origin;
+		}
+	case 1:
+		switch (y)
+		{
+		case -1:
+			return SearchDirection::UR;
+		case 0:
+			return SearchDirection::Right;
+		case 1:
+			return SearchDirection::DR;
+		default:
+			return SearchDirection::Origin;
+		}
+	}
+	return SearchDirection::Origin;
+}
+
+uint32_t AI::Graph::AntiDirection(const uint32_t direction)
+{
+	uint32_t tempDirection{ direction };
+
+	if (direction&SearchDirection::Up)
+	{
+		tempDirection -= SearchDirection::Up;
+		tempDirection |= SearchDirection::Down;
+	}
+	if (direction&SearchDirection::Down)
+	{
+		tempDirection -= SearchDirection::Down;
+		tempDirection |= SearchDirection::Up;
+	}
+	if (direction&SearchDirection::Left)
+	{
+		tempDirection -= SearchDirection::Left;
+		tempDirection |= SearchDirection::Right;
+	}
+	if (direction&SearchDirection::Right)
+	{
+		tempDirection -= SearchDirection::Right;
+		tempDirection |= SearchDirection::Left;
+	}
+	if (direction&SearchDirection::UL)
+	{
+		tempDirection -= SearchDirection::UL;
+		tempDirection |= SearchDirection::DR;
+	}
+	if (direction&SearchDirection::DR)
+	{
+		tempDirection -= SearchDirection::DR;
+		tempDirection |= SearchDirection::UL;
+	}
+	if (direction&SearchDirection::UR)
+	{
+		tempDirection -= SearchDirection::UR;
+		tempDirection |= SearchDirection::DL;
+	}
+	if (direction&SearchDirection::DL)
+	{
+		tempDirection -= SearchDirection::DL;
+		tempDirection |= SearchDirection::UR;
+	}
+	return tempDirection;
+}
+
 /*void Graph::SortOpenList()
 {
 	// ============Sort way 1============
@@ -419,6 +660,124 @@ bool Graph::RunDijkstra(Coord start, std::vector<Coord> c, CostFunc costFunc)
 	return found;
 }
 
+bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
+{
+	Reset();
+
+	mOpenList.push_back(GetNode(start));
+	GetNode(start).opened = true;
+	GetNode(start).sDirection = SearchDirection::Origin;
+
+	bool found = false;
+
+	while (!found && !mOpenList.empty())
+	{
+		Coord current = mOpenList.front().coord;
+
+		mOpenList.pop_front();
+		GetNode(current).coord = current;
+
+		if (current == end)
+		{
+			found = true;
+		}
+		else
+		{
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::Origin)
+			{
+				DiagonalScan(current, end, -1, -1, g, h);
+				DiagonalScan(current, end, -1, 1, g, h);
+				DiagonalScan(current, end, 1, -1, g, h);
+				DiagonalScan(current, end, 1, 1, g, h);
+
+				Coord refCurrent = current;
+				uint32_t tempDirection{ 0u };
+				if (HVScan(refCurrent, end, 1, 0, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+
+				refCurrent = current;
+				tempDirection = 0u;
+				if (HVScan(refCurrent, end, -1, 0, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+
+				refCurrent = current;
+				tempDirection = 0u;
+				if (HVScan(refCurrent, end, 0, 1, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+
+				refCurrent = current;
+				tempDirection = 0u;
+				if (HVScan(refCurrent, end, 0, -1, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Up)
+			{
+				Coord refCurrent = current;
+				uint32_t tempDirection{ 0u };
+				if (HVScan(refCurrent, end, 0, -1, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Down)
+			{
+				Coord refCurrent = current;
+				uint32_t tempDirection{ 0u };
+				if (HVScan(refCurrent, end, 0, 1, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Left)
+			{
+				Coord refCurrent = current;
+				uint32_t tempDirection{ 0u };
+				if (HVScan(refCurrent, end, -1, 0, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Right)
+			{
+				Coord refCurrent = current;
+				uint32_t tempDirection{ 0u };
+				if (HVScan(refCurrent, end, 1, 0, g, h, tempDirection))
+				{
+					JPSSetNode(current, refCurrent, tempDirection, g, h);
+				}
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::UR)
+			{
+				DiagonalScan(current, end, 1, -1, g, h);
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::UL)
+			{
+				DiagonalScan(current, end, -1, -1, g, h);
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::DR)
+			{
+				DiagonalScan(current, end, 1, 1, g, h);
+			}
+			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::DL)
+			{
+				DiagonalScan(current, end, -1, 1, g, h);
+			}
+		}
+
+		mCloseList.push_back(GetNode(current));
+	}
+
+	return found;
+}
+
 std::vector<Math::Vector2> Graph::GetPosPath()
 {
 	Graph::Node tempNode = mCloseList.back();
@@ -491,4 +850,30 @@ void Graph::Reset()
 	}
 	mOpenList.clear();
 	mCloseList.clear();
+}
+
+void AI::Graph::JPSSetNode(Coord parentCoord, Coord current, const uint32_t direction, CostFunc g, HeuristicFunc h)
+{
+	float temp = GetNode(parentCoord).g + g(parentCoord, current);
+	if (GetNode(current).parent == nullptr)
+	{
+		GetNode(current).h = h(current);
+		GetNode(current).g = temp;
+		GetNode(current).parent = &GetNode(parentCoord);
+		GetNode(current).sDirection |= direction;
+		hInsertOpenList(GetNode(current));
+	}
+	else if (temp < GetNode(current).g)
+	{
+		GetNode(current).g = temp;
+		GetNode(current).parent = &GetNode(parentCoord);
+		GetNode(current).sDirection = 0u;
+		GetNode(current).sDirection |= direction;
+	}
+	//else if (GetNode(current).g + g(current, parentCoord) < GetNode(parentCoord).g) // Should never happen
+	//{
+	//	GetNode(parentCoord).g = GetNode(current).g + g(current, parentCoord);
+	//	GetNode(parentCoord).parent = &GetNode(current);
+	//	GetNode(current).sDirection = AntiDirection(direction);
+	//}
 }
