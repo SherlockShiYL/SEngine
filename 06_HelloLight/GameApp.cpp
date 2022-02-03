@@ -27,7 +27,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "Hello Light", 1280, 720);
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 

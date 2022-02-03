@@ -36,7 +36,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720);
+	mWindow.Initialize(GetInstance(), "Hello Lighting Phong Shader", 1280, 720);
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Graphics::Gui::Initialize(mWindow.GetWindowHandle());

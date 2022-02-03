@@ -1,0 +1,4 @@
+
+*.log
+ModelImporter/x64/Debug/ModelImporter.tlog/unsuccessfulbuild
+*.ini

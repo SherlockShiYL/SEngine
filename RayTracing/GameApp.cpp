@@ -52,7 +52,7 @@ void GameApp::OnInitialize()
 	Graphics::Gui::Initialize(mWindow.GetWindowHandle());
 
 	Graphics::MeshBuilder::GenerateSphere(mSphereMesh, 256u, 129u);
-	//Graphics::ModelLoader::LoadOBJVertex("../Assets/Models/Duck/duck.txt", 0.05f, mSphereMesh);
+	Graphics::ModelLoader::LoadOBJVertex("../Assets/Models/Duck/duck.txt", 0.05f, mSphereMesh);
 	mSphereMeshBuffer.Initialize(mSphereMesh);
 
 	mNormalTexture.Initialize("../Assets/Images/earth_normal.jpg");

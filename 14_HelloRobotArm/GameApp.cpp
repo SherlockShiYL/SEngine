@@ -35,7 +35,7 @@ GameApp::~GameApp()
 
 void GameApp::OnInitialize()
 {
-	mWindow.Initialize(GetInstance(), GetAppName(), 1280, 720); //1280
+	mWindow.Initialize(GetInstance(), "Hello Robot Arm", 1280, 720); //1280
 	Input::InputSystem::StaticInitialize(mWindow.GetWindowHandle());
 	Graphics::GraphicsSystem::StaticInitialize(mWindow.GetWindowHandle(), false);
 	Graphics::SimpleDraw::Initialize(1000000);

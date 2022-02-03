@@ -148,7 +148,7 @@ void GameObjectManager::CheckProjectileCollision()
 							{
 								if (mSlime[j]->IsActive())
 								{
-									if (S::Geometry::Intersect({ mSlime[j]->GetPosition(),mSlime[j]->Radius() },
+									if (S::Geometry::Intersect(S::Geometry::Circle{ mSlime[j]->GetPosition(),mSlime[j]->Radius() },
 										mAttackProjectiles.GetAttackProjectiles()[i].GetRectInWorld()))
 									{
 										ServerDamageDisplay temp;
