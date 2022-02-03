@@ -13,7 +13,7 @@ C++
     - Separation
   - NEAT
   - State Machine
-  - BFS, DFS, Dijkstra, Astar, JPS(In Progress)
+  - BFS, DFS, Dijkstra, Astar, JPS
 - Core
 - Geometry
 - Graphics
