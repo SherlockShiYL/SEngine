@@ -72,7 +72,7 @@ void Graph::hInsertOpenList(Node& node)
 			if (node.g + node.h < GetNode(it->coord).g + GetNode(it->coord).h)
 			{
 				mOpenList.insert(it, node);
-				break;
+				return;
 			}
 		}
 		mOpenList.push_back(node);
@@ -121,7 +121,7 @@ bool Graph::HVScan(Coord& parentCoord, const Coord end, int x, int y, CostFunc g
 					direction |= GetDirection(x, y);
 					direction |= GetDirection(x, x);
 					direction |= GetDirection(y, y);
-					direction -= SearchDirection::Origin;
+					//direction -= SearchDirection::Origin;
 					nodeCreated = true;
 				}
 				if (!CheckNext(parentCoord, -y, -x) && CheckNext(parentCoord, -y + x, -x + y))
@@ -129,7 +129,7 @@ bool Graph::HVScan(Coord& parentCoord, const Coord end, int x, int y, CostFunc g
 					direction |= GetDirection(x, y);
 					direction |= GetDirection(x, -x);
 					direction |= GetDirection(-y, y);
-					direction -= SearchDirection::Origin;
+					//direction -= SearchDirection::Origin;
 					nodeCreated = true;
 				}
 			}
@@ -164,7 +164,6 @@ bool Graph::DiagonalScan(const Coord parentCoord, const Coord end, const int x, 
 					JPSSetNode(parentCoord, current, 0u, g, h);
 					return true;
 				}
-
 
 				if (GetNode({ current.x - x,current.y }).blocked)
 				{
@@ -249,7 +248,7 @@ Graph::SearchDirection AI::Graph::GetDirection(int x, int y)
 		case 1:
 			return SearchDirection::DL;
 		default:
-			return SearchDirection::Origin;
+			return SearchDirection::None;
 		}
 	case 0:
 		switch (y)
@@ -259,7 +258,7 @@ Graph::SearchDirection AI::Graph::GetDirection(int x, int y)
 		case 1:
 			return SearchDirection::Down;
 		default:
-			return SearchDirection::Origin;
+			return SearchDirection::None;
 		}
 	case 1:
 		switch (y)
@@ -271,10 +270,10 @@ Graph::SearchDirection AI::Graph::GetDirection(int x, int y)
 		case 1:
 			return SearchDirection::DR;
 		default:
-			return SearchDirection::Origin;
+			return SearchDirection::None;
 		}
 	}
-	return SearchDirection::Origin;
+	return SearchDirection::None;
 }
 
 uint32_t AI::Graph::AntiDirection(const uint32_t direction)
@@ -358,7 +357,7 @@ bool Graph::RunBFS(Coord start, Coord end)
 	{
 		Coord current = mOpenList.front().coord;
 		mOpenList.pop_front();
-		GetNode(current).coord = current;
+		//GetNode(current).coord = current;
 
 		if (current == end)
 		{
@@ -410,7 +409,7 @@ bool Graph::RunDFS(Coord start, Coord end)
 	{
 		Coord current = mOpenList.back().coord;
 		mOpenList.pop_back();
-		GetNode(current).coord = current;
+		//GetNode(current).coord = current;
 
 		if (current == end)
 		{
@@ -455,7 +454,7 @@ bool Graph::RunDijkstra(Coord start, Coord end, CostFunc costFunc)
 	Reset();
 
 	mOpenList.push_back(GetNode(start));
-	GetNode(start).opened = true;
+	//GetNode(start).opened = true;
 
 	bool found = false;
 	while (!found && !mOpenList.empty())
@@ -465,7 +464,7 @@ bool Graph::RunDijkstra(Coord start, Coord end, CostFunc costFunc)
 		Coord current = mOpenList.front().coord;
 
 		mOpenList.pop_front();
-		GetNode(current).coord = current;
+		//GetNode(current).coord = current;
 
 		if (current == end)
 		{
@@ -524,7 +523,7 @@ bool Graph::RunAStar(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 	Reset();
 
 	mOpenList.push_back(GetNode(start));
-	GetNode(start).opened = true;
+	//GetNode(start).opened = true;
 
 	bool found = false;
 	while (!found && !mOpenList.empty())
@@ -532,7 +531,7 @@ bool Graph::RunAStar(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 		Coord current = mOpenList.front().coord;
 
 		mOpenList.pop_front();
-		GetNode(current).coord = current;
+		//GetNode(current).coord = current;
 
 		if (current == end)
 		{
@@ -591,7 +590,7 @@ bool Graph::RunDijkstra(Coord start, std::vector<Coord> c, CostFunc costFunc)
 	Reset();
 
 	mOpenList.push_back(GetNode(start));
-	GetNode(start).opened = true;
+	//GetNode(start).opened = true;
 
 	bool found = false;
 	while (!found && !mOpenList.empty())
@@ -599,7 +598,7 @@ bool Graph::RunDijkstra(Coord start, std::vector<Coord> c, CostFunc costFunc)
 		Coord current = mOpenList.front().coord;
 
 		mOpenList.pop_front();
-		GetNode(current).coord = current;
+		//GetNode(current).coord = current;
 		for (size_t i = 0; i < c.size(); ++i)
 		{
 			if (current == c[i])
@@ -665,7 +664,6 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 	Reset();
 
 	mOpenList.push_back(GetNode(start));
-	GetNode(start).opened = true;
 	GetNode(start).sDirection = SearchDirection::Origin;
 
 	bool found = false;
@@ -673,9 +671,7 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 	while (!found && !mOpenList.empty())
 	{
 		Coord current = mOpenList.front().coord;
-
 		mOpenList.pop_front();
-		GetNode(current).coord = current;
 
 		if (current == end)
 		{
@@ -718,7 +714,7 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 					JPSSetNode(current, refCurrent, tempDirection, g, h);
 				}
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Up)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::Up)
 			{
 				Coord refCurrent = current;
 				uint32_t tempDirection{ 0u };
@@ -727,7 +723,7 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 					JPSSetNode(current, refCurrent, tempDirection, g, h);
 				}
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Down)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::Down)
 			{
 				Coord refCurrent = current;
 				uint32_t tempDirection{ 0u };
@@ -736,7 +732,7 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 					JPSSetNode(current, refCurrent, tempDirection, g, h);
 				}
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Left)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::Left)
 			{
 				Coord refCurrent = current;
 				uint32_t tempDirection{ 0u };
@@ -745,7 +741,7 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 					JPSSetNode(current, refCurrent, tempDirection, g, h);
 				}
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::Right)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::Right)
 			{
 				Coord refCurrent = current;
 				uint32_t tempDirection{ 0u };
@@ -754,19 +750,19 @@ bool AI::Graph::RunJPS(Coord start, Coord end, CostFunc g, HeuristicFunc h)
 					JPSSetNode(current, refCurrent, tempDirection, g, h);
 				}
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::UR)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::UR)
 			{
 				DiagonalScan(current, end, 1, -1, g, h);
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::UL)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::UL)
 			{
 				DiagonalScan(current, end, -1, -1, g, h);
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::DR)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::DR)
 			{
 				DiagonalScan(current, end, 1, 1, g, h);
 			}
-			if (GetNode(current).sDirection &  AI::Graph::SearchDirection::DL)
+			if (GetNode(current).sDirection & AI::Graph::SearchDirection::DL)
 			{
 				DiagonalScan(current, end, -1, 1, g, h);
 			}
@@ -847,6 +843,7 @@ void Graph::Reset()
 		node.opened = false;
 		node.closed = false;
 		node.parent = nullptr;
+		node.sDirection = SearchDirection::None;
 	}
 	mOpenList.clear();
 	mCloseList.clear();
@@ -857,6 +854,9 @@ void AI::Graph::JPSSetNode(Coord parentCoord, Coord current, const uint32_t dire
 	float temp = GetNode(parentCoord).g + g(parentCoord, current);
 	if (GetNode(current).parent == nullptr)
 	{
+		if (GetNode(current).sDirection & SearchDirection::Origin)
+			return;
+
 		GetNode(current).h = h(current);
 		GetNode(current).g = temp;
 		GetNode(current).parent = &GetNode(parentCoord);

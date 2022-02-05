@@ -9,6 +9,7 @@ class Graph
 public:
 	enum SearchDirection
 	{
+		None = 0,
 		Origin = 0x1 << 0,
 		Up = 0x1 << 1,
 		Down = 0x1 << 2,
@@ -38,7 +39,7 @@ public:
 		bool opened{ false };
 		bool closed{ false };
 		bool blocked{ false };
-		uint32_t sDirection{ SearchDirection::Origin };
+		uint32_t sDirection{ SearchDirection::None };
 		// ============Sort way 1============
 		//bool operator<(const Node& rhs)const { return g < rhs.g; }
 	};

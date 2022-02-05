@@ -27,13 +27,13 @@ private:
 
 	S::Input::InputSystem* input{ nullptr };
 
-	bool mStartPoint = false, mEndPoint = false;
 	int mMode{ 0 };
 	int mRunCount{ 0 };
 	int mTileIndex{ 0 };
-	S::AI::Graph::Coord mStartCoord, mEndCoord;
+	S::AI::Graph::Coord mStartCoord{ 10,3 }, mEndCoord;
 	float mTotalTimeCost{ 0.0f };
 	float mAverageTimeCost{ 0.0f };
+	float mDiagonalExtra{ sqrtf(2) - 1.0f };
 
 	S::Graphics::TextureId mStartPointTexture;
 	S::Graphics::TextureId mEndPointTexture;

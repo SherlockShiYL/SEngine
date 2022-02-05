@@ -51,7 +51,7 @@ Transition PathFindingScene::Update(float deltaTime)
 	auto GetDistance = [&](AI::Graph::Coord c1, AI::Graph::Coord c2)
 	{
 		float extraWeight = 0.0f;
-		float diagonalExtra = sqrtf(2) - 1.0f;
+		float diagonalExtra = mDiagonalExtra;
 		if (mTileMap.GetTile(c2.x, c2.y) == 1)
 		{
 			extraWeight += 4.0f;
@@ -74,7 +74,7 @@ Transition PathFindingScene::Update(float deltaTime)
 
 	auto GetStraightDistance = [&](AI::Graph::Coord c)
 	{
-		return sqrtf(((float)mEndCoord.x - (float)c.x)*((float)mEndCoord.x - (float)c.x) + ((float)mEndCoord.y - (float)c.y)*((float)mEndCoord.y - (float)c.y));
+		return Math::Sqrt(((float)mEndCoord.x - (float)c.x)*((float)mEndCoord.x - (float)c.x) + ((float)mEndCoord.y - (float)c.y)*((float)mEndCoord.y - (float)c.y));
 	};
 
 	if (ImGui::Selectable("Run BFS", mMode == 1))
@@ -161,7 +161,10 @@ Transition PathFindingScene::Update(float deltaTime)
 		//ImGui::PopID();
 	}
 
-
+	if (ImGui::Button("Save Map"))
+	{
+		mTileMap.SaveLevel("../Assets/TileMaps/PathFindingMap.txt");
+	}
 	// State
 	Transition nextState = Transition::None;
 	if (ImGui::Button("Return"))
@@ -176,20 +179,15 @@ void PathFindingScene::Render()
 	mTileMap.Render(mWorldPosition, mWorldScale);
 
 	mGraph.RenderPath(mTileMap.GetTileSize(), mWorldPosition);
-	if (mStartPoint)
-	{
-		Graphics::DrawSprite(mStartPointTexture,
-			Math::Vector2{ ((float)mStartCoord.x*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale,
-			((float)mStartCoord.y*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale } + mWorldPosition,
-			0.0f, mWorldScale);
-	}
-	if (mEndPoint)
-	{
-		Graphics::DrawSprite(mEndPointTexture,
-			Math::Vector2{ ((float)mEndCoord.x*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale,
-			((float)mEndCoord.y*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale } + mWorldPosition,
-			0.0f, mWorldScale);
-	}
+	Graphics::DrawSprite(mStartPointTexture,
+		Math::Vector2{ ((float)mStartCoord.x*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale,
+		((float)mStartCoord.y*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale } + mWorldPosition,
+		0.0f, mWorldScale);
+
+	Graphics::DrawSprite(mEndPointTexture,
+		Math::Vector2{ ((float)mEndCoord.x*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale,
+		((float)mEndCoord.y*mTileMap.GetTileSize() + 0.5f*mTileMap.GetTileSize())*mWorldScale } + mWorldPosition,
+		0.0f, mWorldScale);
 
 	ImGui::Text("Average: %f", mAverageTimeCost);
 	ImGui::Text("Count: %d", mRunCount);
@@ -198,6 +196,9 @@ void PathFindingScene::Render()
 
 void PathFindingScene::PlayerInput()
 {
+	uint32_t tColumn = (input->GetMouseScreenX() - static_cast<int>(mWorldPosition.x)) / static_cast<int>(mTileMap.GetTileSize());
+	uint32_t tRow = (input->GetMouseScreenY() - static_cast<int>(mWorldPosition.y)) / static_cast<int>(mTileMap.GetTileSize());
+
 	if (input->IsKeyDown(S::Input::KeyCode::SPACE))
 	{
 		mWorldPosition.x += static_cast<float>(input->GetMouseMoveX());
@@ -215,24 +216,29 @@ void PathFindingScene::PlayerInput()
 	{
 		if (input->IsMouseDown(S::Input::MouseButton::LBUTTON))
 		{
-			mTileMap.SetTile((input->GetMouseScreenX() - static_cast<int>(mWorldPosition.x)) / static_cast<int>(mTileMap.GetTileSize()),
-				(input->GetMouseScreenY() - static_cast<int>(mWorldPosition.y)) / static_cast<int>(mTileMap.GetTileSize()), mTileIndex);
+			mTileMap.SetTile(tColumn, tRow, mTileIndex);
+			if (mTileIndex)
+			{
+				mGraph.SetBlock(tColumn, tRow);
+			}
+			else
+			{
+				mGraph.Unblock(tColumn, tRow);
+			}
 		}
 	}
 	else
 	{
 		if (input->IsMouseDown(S::Input::MouseButton::LBUTTON))
 		{
-			mStartCoord.x = input->GetMouseScreenX() / static_cast<int>(mTileMap.GetTileSize());
-			mStartCoord.y = input->GetMouseScreenY() / static_cast<int>(mTileMap.GetTileSize());
-			mStartPoint = true;
+			mStartCoord.x = tColumn;
+			mStartCoord.y = tRow;
 			ResetCount();
 		}
 		if (input->IsMouseDown(S::Input::MouseButton::RBUTTON))
 		{
-			mEndCoord.x = input->GetMouseScreenX() / static_cast<int>(mTileMap.GetTileSize());
-			mEndCoord.y = input->GetMouseScreenY() / static_cast<int>(mTileMap.GetTileSize());
-			mEndPoint = true;
+			mEndCoord.x = tColumn;
+			mEndCoord.y = tRow;
 			ResetCount();
 		}
 	}
