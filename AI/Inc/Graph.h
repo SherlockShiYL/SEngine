@@ -89,7 +89,7 @@ public:
 	uint32_t GetColumns() const			{ return mColumns; }
 	uint32_t GetRows() const			{ return mRows; }
 
-	//void RenderPath(float tileSize);
+	void RenderPath(float tileSize, Math::Vector2 p);
 
 private:
 	void Reset();

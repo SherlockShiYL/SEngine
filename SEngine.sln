@@ -138,6 +138,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DriverSimulator", "DriverSi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapEditor", "MapEditor\MapEditor.vcxproj", "{F65BE78E-B61E-4032-8523-DCBC67FE7BAB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineCodeTest", "EngineCodeTest\EngineCodeTest.vcxproj", "{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -480,6 +482,14 @@ Global
 		{F65BE78E-B61E-4032-8523-DCBC67FE7BAB}.Release|x64.Build.0 = Release|x64
 		{F65BE78E-B61E-4032-8523-DCBC67FE7BAB}.Release|x86.ActiveCfg = Release|Win32
 		{F65BE78E-B61E-4032-8523-DCBC67FE7BAB}.Release|x86.Build.0 = Release|Win32
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Debug|x64.ActiveCfg = Debug|x64
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Debug|x64.Build.0 = Debug|x64
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Debug|x86.ActiveCfg = Debug|Win32
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Debug|x86.Build.0 = Debug|Win32
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Release|x64.ActiveCfg = Release|x64
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Release|x64.Build.0 = Release|x64
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Release|x86.ActiveCfg = Release|Win32
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -528,6 +538,7 @@ Global
 		{A3253F5D-D69D-46E1-84C3-1DDBF1F0EB18} = {D17BD35A-3841-405D-9022-7A42C322B869}
 		{FE7C1E05-0AD0-4CDA-ABD0-A592A7C859F8} = {D17BD35A-3841-405D-9022-7A42C322B869}
 		{F65BE78E-B61E-4032-8523-DCBC67FE7BAB} = {FACF6A84-1014-43BB-AEAE-F26CD2EDF60A}
+		{69C9C75E-C7DB-4046-B8FF-76EC17704F5B} = {D17BD35A-3841-405D-9022-7A42C322B869}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {774B55AB-49C2-4EDC-97C6-33E4A810EE94}

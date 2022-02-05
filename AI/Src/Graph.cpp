@@ -801,41 +801,41 @@ std::list<Graph::Node> Graph::GetCloseList()
 	return mCloseList;
 }
 
-//void Graph::RenderPath(float tileSize)
-//{
-//	char gText[32];
-//	if (mCloseList.empty())
-//	{
-//		return;
-//	}
-//	for (uint32_t i = 0; i < mColumns; ++i)
-//	{
-//		for (uint32_t j = 0; j < mRows; ++j)
-//		{
-//			if (GetNode(Graph::Coord{ i,j }).parent != nullptr)
-//			{
-//				S::DrawScreenLine(Math::Vector2{ i*tileSize,j*tileSize }
-//				, X::Math::Vector2{ GetNode(Graph::Coord{i,j}).parent->coord.x*tileSize,GetNode(Graph::Coord{ i,j }).parent->coord.y*tileSize }
-//				, X::Math::Vector4::Black());
-//				sprintf_s(gText, 32, "%.3f", GetNode(Graph::Coord{ i,j }).g);
-//				X::DrawScreenText(gText, i*tileSize, j*tileSize, tileSize*0.25f, X::Math::Vector4::White());
-//			}
-//		}
-//	}
-//	Coord temp = mCloseList.back().coord;
-//	while (GetNode(temp).parent != nullptr)
-//	{
-//		X::DrawScreenLine(X::Math::Vector2{ temp.x*tileSize,temp.y*tileSize }
-//		, X::Math::Vector2{ GetNode(temp).parent->coord.x*tileSize,GetNode(temp).parent->coord.y*tileSize }
-//		, X::Math::Vector4::Red());
-//		temp = GetNode(temp).parent->coord;
-//	}
-//	/*while (!mCloseList.empty())
-//	{
-//		X::DrawScreenCircle(X::Math::Vector2{ mCloseList.front().coord.x*64.0f + 32.0f,mCloseList.front().coord.y*64.0f + 32.0f }, 5.0f, X::Math::Vector4::Magenta());
-//		mCloseList.pop_front();
-//	}*/
-//}
+void Graph::RenderPath(float tileSize, Math::Vector2 p)
+{
+	char gText[32];
+	if (mCloseList.empty())
+	{
+		return;
+	}
+	for (uint32_t i = 0; i < mColumns; ++i)
+	{
+		for (uint32_t j = 0; j < mRows; ++j)
+		{
+			if (GetNode(Graph::Coord{ i,j }).parent != nullptr)
+			{
+				Graphics::DrawScreenLine(Math::Vector2{ i*tileSize + tileSize * 0.5f,j*tileSize + tileSize * 0.5f } + p
+				, Math::Vector2{ GetNode(Graph::Coord{i,j}).parent->coord.x*tileSize + tileSize * 0.5f,GetNode(Graph::Coord{ i,j }).parent->coord.y*tileSize + tileSize * 0.5f } + p
+				, Math::Vector4::Black());
+				sprintf_s(gText, 32, "%.3f", GetNode(Graph::Coord{ i,j }).g);
+				Graphics::DrawScreenText(gText, Math::Vector2{ i*tileSize + tileSize * 0.5f, j*tileSize + tileSize * 0.5f } + p, tileSize*0.25f, Math::Vector4::White());
+			}
+		}
+	}
+	Coord temp = mCloseList.back().coord;
+	while (GetNode(temp).parent != nullptr)
+	{
+		Graphics::DrawScreenLine(Math::Vector2{ temp.x*tileSize + tileSize * 0.5f,temp.y*tileSize + tileSize * 0.5f } + p
+		, Math::Vector2{ GetNode(temp).parent->coord.x*tileSize + tileSize * 0.5f,GetNode(temp).parent->coord.y*tileSize + tileSize * 0.5f } + p
+		, Math::Vector4::Red());
+		temp = GetNode(temp).parent->coord;
+	}
+	/*while (!mCloseList.empty())
+	{
+		X::DrawScreenCircle(X::Math::Vector2{ mCloseList.front().coord.x*64.0f + 32.0f,mCloseList.front().coord.y*64.0f + 32.0f }, 5.0f, X::Math::Vector4::Magenta());
+		mCloseList.pop_front();
+	}*/
+}
 
 void Graph::Reset()
 {

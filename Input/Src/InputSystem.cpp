@@ -317,7 +317,7 @@ bool InputSystem::IsMouseDown(MouseButton button) const
 
 bool InputSystem::IsMousePressed(MouseButton button) const
 {
-	return mPrevMouseButtons[(int)button];
+	return mPressedMouseButtons[(int)button];
 }
 
 int InputSystem::GetMouseScreenX() const

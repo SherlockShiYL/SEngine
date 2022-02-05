@@ -53,14 +53,14 @@ VS_OUTPUT VS(VS_INPUT input)
 float4 PS(VS_OUTPUT input) : SV_Target
 {
     float3 n = normalize(input.normal);
-    //float3x3 TBNW = float3x3(normalize(input.tangent), normalize(input.binormal), n);
-    //float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
-    //float3 sampledNormal = float3((2.0f * normalColor.xy) - 1.0f, normalColor.z);
-    //n = mul(sampledNormal, TBNW);
+	float3x3 TBNW = float3x3(normalize(input.tangent), normalize(input.binormal), n);
+	float4 normalColor = normalMap.Sample(textureSampler, input.texCoord);
+	float3 sampledNormal = float3((2.0f * normalColor.xy) - 1.0f, normalColor.z);
+	n = mul(sampledNormal, TBNW);
 
     float3 dtv = normalize(input.dirToView);
     float3 r = reflect(-dtv, n);
-	
+
     float dotu = dot(n, float3(0.0f, 1.0f, 0.0f));
     float dotd = dot(n, float3(0.0f, -1.0f, 0.0f));
     float dotl = dot(n, float3(-1.0f, 0.0f, 0.0f));

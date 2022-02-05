@@ -2,3 +2,10 @@
 *.log
 ModelImporter/x64/Debug/ModelImporter.tlog/unsuccessfulbuild
 *.ini
+*.log
+*.db
+.vs/SEngine/v15/.suo
+*.db-shm
+*.db-wal
+*.log
+*.log

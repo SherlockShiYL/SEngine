@@ -1,17 +1,20 @@
 #include "Car.h"
 #define DESTINATIONNUM 6
 
-S::TileMap tileMap;
-Car car;
-std::vector<Car> cars;
-std::unique_ptr<S::AI::NEAT::Population> population;
-size_t activeCarCount{ 0 };
-float totalTime{ 0.0f };
-float timePeriod{ 30.0f };
-S::Math::Vector2 worldPosition, spawnPosition{ 80.0f,75.0f };
-S::Input::InputSystem* input = nullptr;
-S::Math::Vector2 destinationList[DESTINATIONNUM];
-S::Math::Vector2 destinationList01[DESTINATIONNUM];
+namespace
+{
+	S::TileMap tileMap;
+	Car car;
+	std::vector<Car> cars;
+	std::unique_ptr<S::AI::NEAT::Population> population;
+	size_t activeCarCount{ 0 };
+	float totalTime{ 0.0f };
+	float timePeriod{ 30.0f };
+	S::Math::Vector2 worldPosition, spawnPosition{ 80.0f,75.0f };
+	S::Input::InputSystem* input = nullptr;
+	S::Math::Vector2 destinationList[DESTINATIONNUM];
+	S::Math::Vector2 destinationList01[DESTINATIONNUM];
+}
 
 bool Init(float deltaTime);
 bool Title(float deltaTime);
