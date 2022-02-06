@@ -25,6 +25,8 @@ C++
 - GameEngine
 
 ## Projects:
+- **EngineCodeTest:** Algorithms test project.
+   - Path Finding: JPS+A*
 - num_Hello* in class 3D project.
 - Marble: TCP LAN Game. There are server and client exe files.
 - **DriverSimulator:** Use NEAT to simulate drivers driving a car.
