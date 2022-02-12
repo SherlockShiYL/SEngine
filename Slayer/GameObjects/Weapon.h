@@ -1,5 +1,5 @@
-#ifndef INCLUDED_SLAER_WEAPON_H
-#define INCLUDED_SLAER_WEAPON_H
+#ifndef INCLUDED_SLAYER_WEAPON_H
+#define INCLUDED_SLAYER_WEAPON_H
 
 #include <Geometry/Inc/Geometry.h>
 
@@ -21,4 +21,4 @@ private:
 
 };
 
-#endif // !INCLUDED_SLAER_WEAPON_H
+#endif // !INCLUDED_SLAYER_WEAPON_H

@@ -24,7 +24,7 @@ void DecisionModule<AgentType>::Purge()
 	// Remove all strategies
 	for (auto strategy : mStrategies)
 	{
-		X::SafeDelete(strategy);
+		S::SafeDelete(strategy);
 	}
 	mStrategies.clear();
 
@@ -32,7 +32,7 @@ void DecisionModule<AgentType>::Purge()
 	if (mCurrentGoal != nullptr)
 	{
 		mCurrentGoal->Terminate();
-		X::SafeDelete(mCurrentGoal);
+		S::SafeDelete(mCurrentGoal);
 	}
 }
 
@@ -76,7 +76,7 @@ void DecisionModule<AgentType>::Arbitrate()
 		if (mCurrentGoal != nullptr)
 		{
 			mCurrentGoal->Terminate();
-			X::SafeDelete(mCurrentGoal);
+			S::SafeDelete(mCurrentGoal);
 		}
 
 		// Set new goal

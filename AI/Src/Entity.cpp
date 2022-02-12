@@ -4,14 +4,16 @@
 
 using namespace S::AI;
 
-Entity::Entity(AIWorld & world)
+Entity::Entity(AIWorld& world)
 	:mWorld(world)
 {
 	mWorld.RegisterEntity(this);
+	mWorld.GetQuadrant().RegisterEntity(this);
 }
 
 Entity::~Entity()
 {
+	mWorld.GetQuadrant().UnregisterEntity(this);
 	mWorld.UnregisterEntity(this);
 }
 

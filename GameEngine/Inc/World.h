@@ -47,28 +47,6 @@ private:
 	bool mUpdating{ false };
 };
 
-template<class T>
-T* World::AddService()
-{
-	static_assert(std::is_base_of_v<Service, T>, "[World] only child of Service is allowed");
-	ASSERT(!mInitialized, "[World] Cannot add Service after world has already initialized.");
-	mServices.emplace_back(std::make_unique<T>());
-	auto& service = mServices.back();
-	service->mWorld = this;
-	return static_cast<T*>(service.get());
-}
-
-template<class T>
-T* World::GetService()
-{
-	for (auto& s : mServices)
-	{
-		if (T::StaticGetTypeId() == s->GetTypeId())
-			return static_cast<T*>(s.get());
-	}
-	return nullptr;
-}
-
 } // namespace S
 
 #endif // !INCLUDED_GAMEENGINE_WORLD_H

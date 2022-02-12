@@ -78,7 +78,7 @@ void MeshBuffer::CreateVertexBuffer(const void* vertexData, uint32_t vertexSize,
 
 	D3D11_BUFFER_DESC bd = {};
 	bd.Usage = dynamic ? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = vertexSize * mVertexCount;
+	bd.ByteWidth = vertexSize * (uint32_t)mVertexCount;
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = dynamic ? D3D11_CPU_ACCESS_WRITE : 0;
 	bd.MiscFlags = 0;
@@ -95,7 +95,7 @@ void MeshBuffer::CreateIndexBuffer(const uint32_t* indexData, uint32_t numIndice
 
 	D3D11_BUFFER_DESC bd = {};
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(uint32_t) * mIndexCount;
+	bd.ByteWidth = static_cast<UINT>(sizeof(uint32_t) * mIndexCount);
 	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	bd.CPUAccessFlags = 0;
 	bd.MiscFlags = 0;
@@ -178,7 +178,7 @@ void MeshBuffer::Render() const
 	ID3D11DeviceContext* context = Graphics::GraphicsSystem::Get()->GetContext();
 
 	// Connect our vertex buffer
-	UINT stride = mVertexSize;
+	UINT stride = (UINT)mVertexSize;
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -190,11 +190,11 @@ void MeshBuffer::Render() const
 		context->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 		// Draw indexed mesh
-		context->DrawIndexed(mIndexCount, 0, 0);
+		context->DrawIndexed((int)mIndexCount, 0u, 0u);
 	}
 	else
 	{
 		// Draw mesh
-		context->Draw(mVertexCount, 0);
+		context->Draw((int)mVertexCount, 0u);
 	}
 }

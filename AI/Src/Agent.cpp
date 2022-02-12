@@ -12,9 +12,10 @@ Agent::Agent(AIWorld& world)
 	, mDestination{ 0.0f, 0.0f }
 	, mHeading{ 0.0f, 1.0f }
 	, mMaxSpeed{ 0.0f }
+	, mRadius{ 1.0f }
 {
-	mWorld.RegisterAgent(this);
-	mWorld.GetQuadrant().RegisterAgent(this);
+	world.RegisterAgent(this);
+	world.GetQuadrant().RegisterAgent(this);
 }
 
 Agent::~Agent()

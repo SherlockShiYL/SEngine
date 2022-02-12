@@ -6,12 +6,12 @@
 namespace S {
 namespace AI {
 
-	class SeparationBehavior : public SteeringBehavior
-	{
-	public:
-		Math::Vector2 Calculate(Agent& agent) override;
-		const char* GetName() const override { return "Separation"; }
-	};
+class SeparationBehavior : public SteeringBehavior
+{
+public:
+	Math::Vector2 Calculate(Agent& agent) override;
+	const char* GetName() const override { return "Separation"; }
+};
 
 } // namespace AI
 } // namespace S

@@ -38,7 +38,7 @@ HandlePool<DataType>::HandlePool(uint32_t capacity)
 	ASSERT(capacity > 0, "[HandlePool] Invalid capacity!");
 	mEntries.resize(capacity + 1);
 	mFreeSlots.reserve(capacity);
-	for (size_t i = capacity; i > 0; --i)
+	for (uint32_t i = capacity; i > 0; --i)
 	{
 		mFreeSlots.push_back(i);
 	}

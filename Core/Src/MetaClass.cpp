@@ -60,6 +60,6 @@ void MetaClass::Dump() const
 	for (size_t i = 0; i < mNumFields; ++i)
 	{
 		auto& field = mFields[i];
-		LOG("has field [%s] of type [%s] at offset [%d]", field.GetName(), field.GetMetaType()->GetName(), field.GetOffset());
+		LOG("has field [%s] of type [%s] at offset [%zd]", field.GetName(), field.GetMetaType()->GetName(), field.GetOffset());
 	}
 }

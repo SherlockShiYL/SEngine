@@ -18,12 +18,12 @@ void AIWorld::UnregisterAgent(Agent* agent)
 	}
 }
 
-void AIWorld::RegisterEntity(Entity * entity)
+void AIWorld::RegisterEntity(Entity* entity)
 {
 	mEntities.push_back(entity);
 }
 
-void AIWorld::UnregisterEntity(Entity * entity)
+void AIWorld::UnregisterEntity(Entity* entity)
 {
 	auto iter = std::find(mEntities.begin(), mEntities.end(), entity);
 	if (iter != mEntities.end())
@@ -32,7 +32,7 @@ void AIWorld::UnregisterEntity(Entity * entity)
 	}
 }
 
-AgentList AIWorld::GetNeighborhood(const Geometry::Circle & range)
+AgentList AIWorld::GetNeighborhoodQuadrant(const Geometry::Circle& range)
 {
 	AgentList temp;
 
@@ -64,7 +64,7 @@ AgentList AIWorld::GetNeighborhood(const Geometry::Circle & range)
 				}
 				else
 				{
-					for (auto& agent : mAIQuadrant.GetAgents()[index + i + mAIQuadrant.GetColumns()*j])
+					for (auto& agent : mAIQuadrant.GetAgents()[(size_t)index + i + (size_t)mAIQuadrant.GetColumns()*j])
 					{
 						if (Math::DistanceSqr(range.center, agent->Position()) < range.radius*range.radius)
 						{
@@ -77,6 +77,13 @@ AgentList AIWorld::GetNeighborhood(const Geometry::Circle & range)
 	}
 	return temp;
 } // Copy Elision
+
+//AgentList AIWorld::GetNeighborhoodQuadtree(const Geometry::Circle& range)
+//{
+//	AgentList temp;
+//	mAIQuadtree.QueryRange(temp, range);
+//	return temp;
+//}
 
 EntityList AIWorld::GetEntities(uint32_t type)
 {
@@ -91,7 +98,7 @@ EntityList AIWorld::GetEntities(uint32_t type)
 	return temp;
 }
 
-Agent* AI::AIWorld::GetOneAgent(uint32_t type)
+Agent* AIWorld::GetOneAgent(uint32_t type)
 {
 	for (size_t i = 0; i < mAgents.size(); ++i)
 	{
@@ -111,6 +118,12 @@ void AIWorld::AddObstacles(const Geometry::Circle& obstacle)
 void AIWorld::AddWall(const Geometry::LineSegment2D& wall)
 {
 	mWalls.push_back(wall);
+}
+
+void AIWorld::Update()
+{
+	mAIQuadrant.Update();
+	//mAIQuadtree.Update();
 }
 
 bool AIWorld::HasLOS(const Geometry::LineSegment2D& line) const

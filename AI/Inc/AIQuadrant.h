@@ -27,29 +27,29 @@ public:
 
 	void DebugRender(Math::Vector2 p = { 0.0f,0.0f });
 
-	uint32_t& GetRows() { return mRows; }
-	const uint32_t& GetRows() const { return mRows; }
+	uint32_t& GetRows()										{ return mRows; }
+	const uint32_t& GetRows() const							{ return mRows; }
 
-	uint32_t& GetColumns() { return mColumns; }
-	const uint32_t& GetColumns() const { return mColumns; }
+	uint32_t& GetColumns()									{ return mColumns; }
+	const uint32_t& GetColumns() const						{ return mColumns; }
 
-	float& GetWidth() { return mWidth; }
-	const float& GetWidth() const { return mWidth; }
+	float& GetWidth()										{ return mWidth; }
+	const float& GetWidth() const							{ return mWidth; }
 
-	float& GetHeight() { return mHeight; }
-	const float& GetHeight() const { return mHeight; }
+	float& GetHeight()										{ return mHeight; }
+	const float& GetHeight() const							{ return mHeight; }
 
-	float& GetRecipWidth() { return recipWidth; }
-	const float& GetRecipWidth() const { return recipWidth; }
+	float& GetRecipWidth()									{ return recipWidth; }
+	const float& GetRecipWidth() const						{ return recipWidth; }
 
-	float& GetRecipHeight() { return recipHeight; }
-	const float& GetRecipHeight() const { return recipHeight; }
+	float& GetRecipHeight()									{ return recipHeight; }
+	const float& GetRecipHeight() const						{ return recipHeight; }
 
-	std::vector<AgentList>& GetAgents() { return mAgents; }
-	const std::vector<AgentList>& GetAgents() const { return mAgents; }
+	std::vector<AgentList>& GetAgents()						{ return mAgentLists; }
+	const std::vector<AgentList>& GetAgents() const			{ return mAgentLists; }
 
-	std::vector<EntityList>& GetEntities() { return mEntities; }
-	const std::vector<EntityList>& GetEntities() const { return mEntities; }
+	std::vector<EntityList>& GetEntities()					{ return mEntityLists; }
+	const std::vector<EntityList>& GetEntities() const		{ return mEntityLists; }
 
 protected:
 	float recipWidth; // Reciprocal of mWidth
@@ -58,8 +58,8 @@ protected:
 	float mHeight; // Height of each grid
 	uint32_t mRows;
 	uint32_t mColumns;
-	std::vector<AgentList> mAgents;
-	std::vector<EntityList> mEntities;
+	std::vector<AgentList> mAgentLists;
+	std::vector<EntityList> mEntityLists;
 };
 
 } // namespace AI

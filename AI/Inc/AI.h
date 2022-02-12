@@ -40,6 +40,7 @@
 #include "PathPlanner.h"
 
 #include "AIQuadrant.h"
+#include "AIQuadtree.h"
 
 // NEAT
 #include "Config.h"

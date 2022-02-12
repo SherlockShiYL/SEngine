@@ -3,6 +3,7 @@
 
 #include "Agent.h"
 #include "AIQuadrant.h"
+#include "AIQuadtree.h"
 #include "Graph.h"
 #include "Entity.h"
 
@@ -21,9 +22,14 @@ public:
 	void RegisterEntity(Entity* entity);
 	void UnregisterEntity(Entity* entity);
 
-	AgentList GetNeighborhood(const Geometry::Circle& range);
-	EntityList GetEntities(uint32_t type);
+	AgentList GetNeighborhoodQuadrant(const Geometry::Circle& range);
+	//AgentList GetNeighborhoodQuadtree(const Geometry::Circle& range);
+
+	const AgentList& GetAgents() const			{ return mAgents; }
 	Agent* GetOneAgent(uint32_t type);
+
+	const EntityList& GetEntities() const		{ return mEntities; }
+	EntityList GetEntities(uint32_t type);
 
 	void AddObstacles(const Geometry::Circle& obstacle);
 	const Obstacles& GetObstacles() const		{ return mObstacles; }
@@ -31,33 +37,39 @@ public:
 	void AddWall(const Geometry::LineSegment2D& wall);
 	const Walls& GetWalls() const				{ return mWalls; }
 
-	Graph& GetNavGraph() { return mNavGraph; }
+	Graph& GetNavGraph()						{ return mNavGraph; }
 	const Graph& GetNavGraph() const			{ return mNavGraph; }
 
-	AIQuadrant& GetQuadrant() { return mAIQuadrant; }
+	AIQuadrant& GetQuadrant()					{ return mAIQuadrant; }
 	const AIQuadrant& GetQuadrant() const		{ return mAIQuadrant; }
+
+	/*AIQuadtree& GetQuadtree()					{ return mAIQuadtree; }
+	const AIQuadtree& GetQuadtree() const		{ return mAIQuadtree; }*/
+
+	void Update();
 
 	bool HasLOS(const Geometry::LineSegment2D& line) const;
 
-	/*void DebugRender()
+	void DebugRender(Math::Vector2 worldPosition = { 0.0f,0.0f })
 	{
 		for (auto& o : mObstacles)
 		{
-			DrawScreenCircle(o, Math::Vector4::Magenta());
+			Graphics::DrawScreenCircle(o + worldPosition, Math::Vector4::Magenta());
 		}
 		for (auto& o : mWalls)
 		{
-			DrawScreenLine(o.from, o.to, Math::Vector4::Magenta());
+			Graphics::DrawScreenLine(o.from + worldPosition, o.to + worldPosition, Math::Vector4::Magenta());
 		}
-	}*/
+	}
 
 private:
-	AgentList mAgents;
+	//bool mInitialized{ false };
 	Obstacles mObstacles;
 	Walls mWalls;
 	Graph mNavGraph;
 	AIQuadrant mAIQuadrant;
-	bool mInitialized;
+	//AIQuadtree mAIQuadtree;
+	AgentList mAgents;
 	EntityList mEntities;
 };
 

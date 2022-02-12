@@ -6,19 +6,19 @@
 namespace S {
 namespace AI {
 
-	template <typename AgentType>
-	class Strategy
-	{
-	public:
-		Strategy(AgentType& agent) : mAgent(agent) {}
-		virtual ~Strategy() {}
+template <typename AgentType>
+class Strategy
+{
+public:
+	Strategy(AgentType& agent) : mAgent(agent) {}
+	virtual ~Strategy() {}
 
-		virtual float CalculateDesirability() = 0;
-		virtual Goal<AgentType>* CreateGoal() = 0;
+	virtual float CalculateDesirability() = 0;
+	virtual Goal<AgentType>* CreateGoal() = 0;
 
-	protected:
-		AgentType& mAgent;
-	};
+protected:
+	AgentType& mAgent;
+};
 
 } // namespace AI
 } // namespace S

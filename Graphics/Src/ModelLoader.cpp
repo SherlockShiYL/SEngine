@@ -21,7 +21,7 @@ void ModelLoader::LoadOBJ(const char* fileName, float scale, Mesh& mesh)
 	while (true)
 	{
 		char buffer[128];
-		int res = fscanf_s(file, "%s", buffer, std::size(buffer));
+		int res = fscanf_s(file, "%s", buffer, (int)std::size(buffer));
 		if (res == EOF)
 			break;
 
@@ -47,7 +47,7 @@ void ModelLoader::LoadOBJ(const char* fileName, float scale, Mesh& mesh)
 		{
 			std::string vertex1, vertex2, vertex3, vertex4;
 			uint32_t v[4], t[4], n[4];
-			fgets(buffer, std::size(buffer), file);
+			fgets(buffer, (int)std::size(buffer), file);
 			if (sscanf_s(buffer, "%d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d\n",
 				&v[0], &t[0], &n[0],
 				&v[1], &t[1], &n[1],
@@ -113,19 +113,19 @@ void ModelLoader::LoadOBJ(const char* fileName, float scale, Mesh& mesh)
 	std::iota(indices.begin(), indices.end(), 0);
 
 	// Initialize mesh
-	mesh.Allocate(vertices.size(), indices.size());
+	mesh.Allocate((uint32_t)vertices.size(), (uint32_t)indices.size());
 	for (size_t i = 0; i < vertices.size(); ++i)
-		mesh.GetVertex(i) = vertices[i];
+		mesh.GetVertex((uint32_t)i) = vertices[i];
 	for (size_t i = 0; i < indices.size(); ++i)
-		mesh.GetIndex(i) = indices[i];
+		mesh.GetIndex((uint32_t)i) = indices[i];
 }
 
 void ModelLoader::LoadOBJVertex(const char * fileName, float scale, Mesh & mesh)
 {
-	Vertex* sVertices;
-	uint32_t* sIndices;
-	uint32_t numVertices;
-	uint32_t numIndices;
+	Vertex* sVertices = nullptr;
+	uint32_t* sIndices = nullptr;
+	uint32_t numVertices{ 0u };
+	uint32_t numIndices{ 0u };
 
 	FILE* file = nullptr;
 	fopen_s(&file, fileName, "r");
@@ -133,8 +133,8 @@ void ModelLoader::LoadOBJVertex(const char * fileName, float scale, Mesh & mesh)
 
 	while (true)
 	{
-		char buffer[128];
-		int res = fscanf_s(file, "%s", buffer, std::size(buffer));
+		char buffer[128] = { 0 };
+		int res = fscanf_s(file, "%s", buffer, (int)std::size(buffer));
 		if (res == EOF)
 			break;
 
@@ -150,11 +150,11 @@ void ModelLoader::LoadOBJVertex(const char * fileName, float scale, Mesh & mesh)
 		}
 		else if (strcmp(buffer, "MaterialIndex:") == 0)
 		{
-			fscanf_s(file, "%s\n", &buffer, std::size(buffer));
+			fscanf_s(file, "%s\n", &buffer, (int)std::size(buffer));
 
 			for (uint32_t i = 0; i < numVertices; ++i)
 			{
-				fgets(buffer, std::size(buffer), file);
+				fgets(buffer, (int)std::size(buffer), file);
 				if (sscanf_s(buffer, "%f %f %f %f %f %f %f %f %f %f %f",
 					&sVertices[i].position.x, &sVertices[i].position.y, &sVertices[i].position.z,
 					&sVertices[i].normal.x, &sVertices[i].normal.y, &sVertices[i].normal.z,
@@ -173,7 +173,7 @@ void ModelLoader::LoadOBJVertex(const char * fileName, float scale, Mesh & mesh)
 
 			for (uint32_t i = 0; i < numIndices; i += 3)
 			{
-				fgets(buffer, std::size(buffer), file);
+				fgets(buffer, (int)std::size(buffer), file);
 				if (sscanf_s(buffer, "%d %d %d", &sIndices[i], &sIndices[i + 1], &sIndices[i + 2]) != 3)
 				{
 					ASSERT(false, "[ModelLoader] Failed to load file %s.", fileName);
@@ -198,15 +198,15 @@ void ModelLoader::LoadOBJVertex(const char * fileName, float scale, Mesh & mesh)
 	SafeDeleteArray(sIndices);
 }
 
-void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
+void ModelLoader::LoadSkeleton(const char* fileName, AnimatedModel& model)
 {
 	BoneMesh tempMesh;
-	BoneVertex* sVertices;
-	uint32_t* sIndices;
-	uint32_t numMeshes;
-	uint32_t numVertices;
-	uint32_t numIndices;
-	uint32_t numBone;
+	BoneVertex* sVertices = nullptr;
+	uint32_t* sIndices = nullptr;
+	uint32_t numMeshes{ 0 };
+	uint32_t numVertices{ 0 };
+	uint32_t numIndices{ 0 };
+	uint32_t numBone{ 0 };
 	uint32_t boneIndex{ 0 };
 
 	FILE* file = nullptr;
@@ -216,7 +216,7 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 	while (true)
 	{
 		char buffer[256];
-		int res = fscanf_s(file, "%s", buffer, std::size(buffer));
+		int res = fscanf_s(file, "%s", buffer, (int)std::size(buffer));
 		if (res == EOF)
 			break;
 
@@ -247,7 +247,7 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 			int meshIndex;
 			fscanf_s(file, "%d\n", &meshIndex);
 
-			fscanf_s(file, "%s", buffer, std::size(buffer));
+			fscanf_s(file, "%s", buffer, (int)std::size(buffer));
 			ASSERT(strcmp(buffer, "TextureCount:") == 0, "[ModelLoader] No TextureCount.");
 
 			uint32_t num;
@@ -266,12 +266,12 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 			}
 			if (num)
 			{
-				fgets(buffer, std::size(buffer), file);
+				fgets(buffer, (int)std::size(buffer), file);
 			}
 
 			for (uint32_t i = 0; i < numVertices; ++i)
 			{
-				fgets(buffer, std::size(buffer), file);
+				fgets(buffer, (int)std::size(buffer), file);
 				if (sscanf_s(buffer, "%f %f %f %f %f %f %f %f %f %f %f %d %d %d %d %f %f %f %f",
 					&sVertices[i].position.x, &sVertices[i].position.y, &sVertices[i].position.z,
 					&sVertices[i].normal.x, &sVertices[i].normal.y, &sVertices[i].normal.z,
@@ -287,7 +287,7 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 
 			for (uint32_t i = 0; i < numIndices; i += 3)
 			{
-				fgets(buffer, std::size(buffer), file);
+				fgets(buffer, (int)std::size(buffer), file);
 				if (sscanf_s(buffer, "%d %d %d", &sIndices[i], &sIndices[i + 1], &sIndices[i + 2]) != 3)
 				{
 					ASSERT(false, "[ModelLoader] Failed to load file %s.", fileName);
@@ -315,11 +315,11 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 			for (int i = 0; i < num; ++i)
 			{
 				char name[128];
-				fscanf_s(file, "%s\n", name, std::size(name));
+				fscanf_s(file, "%s\n", name, (int)std::size(name));
 				std::string temp = fileName;
 				std::string tempName = temp.substr(0, temp.rfind('/') + 1).c_str();
 				tempName.append(name);
-				size_t index = tempName.substr(tempName.rfind('.') - 1, 1)[0] - '0';
+				size_t index = tempName.substr(tempName.rfind('.') - (size_t)1, 1)[0] - '0';
 				if (index <= 9 && index >= 0)
 				{
 					model.textures[index].Initialize(tempName.c_str());
@@ -337,7 +337,7 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 		}
 		else if (strcmp(buffer, "Name:") == 0)
 		{
-			fscanf_s(file, "%s\n", buffer, std::size(buffer));
+			fscanf_s(file, "%s\n", buffer, (int)std::size(buffer));
 			model.bones[boneIndex]->name = buffer;
 		}
 		else if (strcmp(buffer, "Index:") == 0)
@@ -360,9 +360,9 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 			}
 			if (temp)
 			{
-				fgets(buffer, std::size(buffer), file);
+				fgets(buffer, (int)std::size(buffer), file);
 			}
-			fgets(buffer, std::size(buffer), file);
+			fgets(buffer, (int)std::size(buffer), file);
 			if (sscanf_s(buffer, "%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f",
 				&model.bones[boneIndex]->toParentTransform._1[0],
 				&model.bones[boneIndex]->toParentTransform._1[1],
@@ -390,7 +390,7 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 				//model.bones[boneIndex]->toParentTransform = model.bones[boneIndex]->toParentTransform*Math::Scaling({ scale,scale ,scale });
 			}
 
-			fgets(buffer, std::size(buffer), file);
+			fgets(buffer, (int)std::size(buffer), file);
 			if (sscanf_s(buffer, "%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f",
 				&model.bones[boneIndex]->offsetTransform._1[0],
 				&model.bones[boneIndex]->offsetTransform._1[1],
@@ -421,7 +421,7 @@ void ModelLoader::LoadSkeleton(const char * fileName, AnimatedModel& model)
 		}
 		else if (strcmp(buffer, "Animation:") == 0)
 		{
-		AnimationIO::LoadAnimationClip(file, model.animations, model.bones.size()); // Why is this ; remove the tab?
+			AnimationIO::LoadAnimationClip(file, model.animations, (int)model.bones.size()); // Why is this ; remove the tab?
 		}
 	}
 	model.LinkBones();

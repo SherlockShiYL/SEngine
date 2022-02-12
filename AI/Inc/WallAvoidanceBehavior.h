@@ -6,16 +6,16 @@
 namespace S {
 namespace AI {
 
-	class WallAvoidanceBehavior : public SteeringBehavior
-	{
-	public:
-		Math::Vector2 Calculate(Agent& agent) override;
-		const char* GetName() const override { return "WallAvoidance"; }
-		void SetElement(float d, float f) { maxVisionDistance = d, maxAvoidForce = f; }
+class WallAvoidanceBehavior : public SteeringBehavior
+{
+public:
+	Math::Vector2 Calculate(Agent& agent) override;
+	const char* GetName() const override { return "WallAvoidance"; }
+	void SetElement(float d, float f) { maxVisionDistance = d, maxAvoidForce = f; }
 
-		float maxVisionDistance;
-		float maxAvoidForce;
-	};
+	float maxVisionDistance;
+	float maxAvoidForce;
+};
 
 } // namespace AI
 } // namespace S

@@ -5,7 +5,7 @@
 
 S::Math::Vector2 S::AI::AlignmentBehavior::Calculate(S::AI::Agent & agent)
 {
-	AgentList agentList = agent.World().GetNeighborhood(Geometry::Circle{ agent.Position(), agent.MaxSpeed()*10.0f });
+	AgentList agentList = agent.World().GetNeighborhoodQuadrant(Geometry::Circle{ agent.Position(), agent.MaxSpeed()*10.0f });
 	Math::Vector2 DesiredVelocity{ 0.0f,0.0f };
 	for (auto& a : agentList)
 	{

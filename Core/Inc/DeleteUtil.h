@@ -3,7 +3,8 @@
 
 namespace S {
 
-namespace Graphics {
+namespace Graphics
+{
 	using TextureId = std::size_t;
 }
 template <class T>

@@ -9,9 +9,7 @@ enum class Transition
 	None,
 	GoToFrontend, // Menu
 	GoToPathFindingScene,
-	GoToAbility,
-	GoToPlay,
-	GoToDebug,
+	GoToQuadtree,
 	QuitGame
 };
 

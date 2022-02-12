@@ -1,5 +1,5 @@
-#ifndef INCLUND_SLAYER_GAMESTATE_H
-#define INCLUND_SLAYER_GAMESTATE_H
+#ifndef INCLUDED_SLAYER_GAMESTATE_H
+#define INCLUDED_SLAYER_GAMESTATE_H
 
 #include <GameEngine/Inc/GameEngine.h>
 #include <AI/Inc/AI.h>
@@ -29,4 +29,4 @@ private:
 
 };
 
-#endif //#ifndef INCLUND_SLAYER_GAMESTATE_H
+#endif //#ifndef INCLUDED_SLAYER_GAMESTATE_H

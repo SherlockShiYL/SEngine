@@ -1,11 +1,9 @@
-#ifndef INCLUND_ENGINECODETEST_GAMEPLAY_H
-#define INCLUND_ENGINECODETEST_GAMEPLAY_H
+#ifndef INCLUDED_ENGINECODETEST_GAMEPLAY_H
+#define INCLUDED_ENGINECODETEST_GAMEPLAY_H
 
 #include <GameEngine/Inc/GameEngine.h>
 #include <AI/Inc/AI.h>
 #include "GameState.h"
-
-class GameObjectManager;
 
 class PathFindingScene : public GameState
 {
@@ -48,4 +46,4 @@ private:
 
 };
 
-#endif //#define INCLUND_ENGINECODETEST_GAMEPLAY_H
+#endif //#define INCLUDED_ENGINECODETEST_GAMEPLAY_H

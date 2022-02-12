@@ -1,5 +1,5 @@
-#ifndef INCLUND_SLAYER_GAMEPLAY_H
-#define INCLUND_SLAYER_GAMEPLAY_H
+#ifndef INCLUDED_SLAYER_GAMEPLAY_H
+#define INCLUDED_SLAYER_GAMEPLAY_H
 
 #define DAMAGEDISPLAYNUM 200
 
@@ -56,4 +56,4 @@ private:
 	S::Input::InputSystem* input{ nullptr };
 };
 
-#endif //#define INCLUND_SLAYER_GAMEPLAY_H
+#endif //#define INCLUDED_SLAYER_GAMEPLAY_H

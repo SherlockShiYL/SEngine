@@ -6,20 +6,20 @@
 namespace S {
 namespace AI {
 
-	template <typename AgentType>
-	class GoalComposite : public Goal<AgentType>
-	{
-	public:
-		GoalComposite(AgentType& agent);
-		virtual ~GoalComposite();
+template <typename AgentType>
+class GoalComposite : public Goal<AgentType>
+{
+public:
+	GoalComposite(AgentType& agent);
+	virtual ~GoalComposite();
 
-	protected:
-		void AddSubgoal(Goal<AgentType>* goal);
-		void RemoveAllSubgoals();
-		Goal<AgentType>::Status ProcessSubgoals();
+protected:
+	void AddSubgoal(Goal<AgentType>* goal);
+	void RemoveAllSubgoals();
+	Goal<AgentType>::Status ProcessSubgoals();
 
-		std::list<Goal<AgentType>*> mSubgoals;
-	};
+	std::list<Goal<AgentType>*> mSubgoals;
+};
 
 #include "GoalComposite.inl"
 

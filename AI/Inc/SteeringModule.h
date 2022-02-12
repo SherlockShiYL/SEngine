@@ -6,45 +6,45 @@
 namespace S {
 namespace AI {
 
-	class SteeringModule
-	{
-	public:
-		SteeringModule(Agent& agent);
-		~SteeringModule();
-
-		template <class BehaviorType>
-		BehaviorType* AddBehavior();
-		template <class BehaviorType>
-		BehaviorType* GetBehavior(const char* name);
-		void Purge();
-
-		Math::Vector2 Calculate();
-
-	private:
-		Agent & mAgent;
-		std::vector<std::unique_ptr<SteeringBehavior>> mBehaviors;
-	};
+class SteeringModule
+{
+public:
+	SteeringModule(Agent& agent);
+	~SteeringModule();
 
 	template <class BehaviorType>
-	BehaviorType* SteeringModule::AddBehavior()
-	{
-		mBehaviors.push_back(std::make_unique<BehaviorType>());
-		return static_cast<BehaviorType*>(mBehaviors.back().get());
-	}
-
+	BehaviorType* AddBehavior();
 	template <class BehaviorType>
-	BehaviorType* SteeringModule::GetBehavior(const char* name)
+	BehaviorType* GetBehavior(const char* name);
+	void Purge();
+
+	Math::Vector2 Calculate();
+
+private:
+	Agent& mAgent;
+	std::vector<std::unique_ptr<SteeringBehavior>> mBehaviors;
+};
+
+template <class BehaviorType>
+BehaviorType* SteeringModule::AddBehavior()
+{
+	mBehaviors.push_back(std::make_unique<BehaviorType>());
+	return static_cast<BehaviorType*>(mBehaviors.back().get());
+}
+
+template <class BehaviorType>
+BehaviorType* SteeringModule::GetBehavior(const char* name)
+{
+	for (auto& b : mBehaviors)
 	{
-		for (auto& b : mBehaviors)
+		if (strcmp(b->GetName(), name) == 0)
 		{
-			if (strcmp(b->GetName(), name) == 0)
-			{
-				return static_cast<BehaviorType*>(b.get());
-			}
+			return static_cast<BehaviorType*>(b.get());
 		}
-
-		return nullptr;
 	}
+
+	return nullptr;
+}
 
 } // namespace AI
 } // namespace S

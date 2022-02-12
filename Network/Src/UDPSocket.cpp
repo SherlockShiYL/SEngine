@@ -87,7 +87,7 @@ int UDPSocket::SendTo(const void* buffer, int len, const SocketAddress& toAddres
 		return SOCKET_ERROR;
 	}
 
-	int bytesSent = sendto(mSocket, static_cast<const char*>(buffer), len, 0, &toAddress.mSockAddr, toAddress.GetSize());
+	int bytesSent = sendto(mSocket, static_cast<const char*>(buffer), len, 0, &toAddress.mSockAddr, (int)toAddress.GetSize());
 	if (bytesSent < 0)
 	{
 		LOG("[UDPSocket] Failed to send data.");
@@ -98,7 +98,7 @@ int UDPSocket::SendTo(const void* buffer, int len, const SocketAddress& toAddres
 
 int UDPSocket::ReceiveFrom(void* buffer, int len, SocketAddress& fromAddress)
 {
-	int fromLength = fromAddress.GetSize();
+	int fromLength = (int)fromAddress.GetSize();
 	int bytesRead = recvfrom(mSocket, static_cast<char*>(buffer), len, 0, &fromAddress.mSockAddr, &fromLength);
 	if (bytesRead >= 0)
 	{

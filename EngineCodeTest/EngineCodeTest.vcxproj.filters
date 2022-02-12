@@ -3,11 +3,44 @@
   <ItemGroup>
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Frontend.cpp" />
-    <ClCompile Include="PathFinding.cpp" />
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>QuadtreeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadtreeScene.cpp">
+      <Filter>QuadtreeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding.cpp">
+      <Filter>PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="RedArrow.cpp">
+      <Filter>QuadtreeScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Frontend.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="PathFinding.h" />
+    <ClInclude Include="QuadtreeScene.h">
+      <Filter>QuadtreeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>QuadtreeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding.h">
+      <Filter>PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="RedArrow.h">
+      <Filter>QuadtreeScene</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="QuadtreeScene">
+      <UniqueIdentifier>{dff1a38c-a1b4-42a8-bdcb-ecae0568ca93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PathFinding">
+      <UniqueIdentifier>{2d7b6aa5-ddf2-41cf-a29d-f0274126e628}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

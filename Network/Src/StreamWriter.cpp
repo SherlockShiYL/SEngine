@@ -22,7 +22,7 @@ void StreamWriter::Write(const void* data, uint32_t size)
 
 void StreamWriter::Write(const std::string& str)
 {
-	const size_t length = str.length();
+	const uint32_t length = (uint32_t)str.length();
 	Write(length);
 	Write(str.c_str(), length);
 }

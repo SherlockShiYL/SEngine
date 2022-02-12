@@ -28,6 +28,10 @@ Transition Frontend::Update(float deltaTime)
 	{
 		nextState = Transition::GoToPathFindingScene;
 	}
+	if (ImGui::Button("Quadtree"))
+	{
+		nextState = Transition::GoToQuadtree;
+	}
 	if (ImGui::Button("Quit"))
 	{
 		nextState = Transition::QuitGame;

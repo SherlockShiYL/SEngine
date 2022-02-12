@@ -8,29 +8,29 @@
 namespace S {
 namespace AI {
 
-	template <typename AgentType>
-	class DecisionModule
-	{
-	public:
-		typedef Goal<AgentType> GoalType;
-		typedef Strategy<AgentType> StrategyType;
+template <typename AgentType>
+class DecisionModule
+{
+public:
+	typedef Goal<AgentType> GoalType;
+	typedef Strategy<AgentType> StrategyType;
 
-		DecisionModule(AgentType& agent);
-		~DecisionModule();
+	DecisionModule(AgentType& agent);
+	~DecisionModule();
 
-		void AddStrategy(StrategyType* strategy);
-		void Purge();
+	void AddStrategy(StrategyType* strategy);
+	void Purge();
 
-		void Update();
+	void Update();
 
-	private:
-		void Arbitrate();
+private:
+	void Arbitrate();
 
-		AgentType& mAgent;
-		std::vector<StrategyType*> mStrategies;
-		StrategyType* mCurrentStrategy;
-		GoalType* mCurrentGoal;
-	};
+	AgentType& mAgent;
+	std::vector<StrategyType*> mStrategies;
+	StrategyType* mCurrentStrategy;
+	GoalType* mCurrentGoal;
+};
 
 #include "DecisionModule.inl"
 

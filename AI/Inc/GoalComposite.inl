@@ -40,8 +40,8 @@ typename Goal<AgentType>::Status GoalComposite<AgentType>::ProcessSubgoals()
 	while (!mSubgoals.empty())
 	{
 		Goal<AgentType>* goal = mSubgoals.front();
-		if (goal->mStatus != Status::Completed &&
-			goal->mStatus != Status::Failed)
+		if (goal->mStatus != Goal<AgentType>::Status::Completed &&
+			goal->mStatus != Goal<AgentType>::Status::Failed)
 		{
 			break;
 		}
@@ -55,14 +55,14 @@ typename Goal<AgentType>::Status GoalComposite<AgentType>::ProcessSubgoals()
 	if (!mSubgoals.empty())
 	{
 		typename Goal<AgentType>::Status status = mSubgoals.front()->Process();
-		if (status == Status::Completed && mSubgoals.size() > 1)
+		if (status == Goal<AgentType>::Status::Completed && mSubgoals.size() > 1)
 		{
-			return Status::Active;
+			return Goal<AgentType>::Status::Active;
 		}
 		else
 		{
 			return status;
 		}
 	}
-	return Status::Completed;
+	return Goal<AgentType>::Status::Completed;
 }

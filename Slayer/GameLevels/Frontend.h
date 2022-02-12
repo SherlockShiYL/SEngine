@@ -1,5 +1,5 @@
-﻿#ifndef INCLUND_SLAYER_FRONTEND_H
-#define INCLUND_SLAYER_FRONTEND_H
+﻿#ifndef INCLUDED_SLAYER_FRONTEND_H
+#define INCLUDED_SLAYER_FRONTEND_H
 
 #include "GameState.h"
 #include "../MenuManager.h"
@@ -21,5 +21,5 @@ private:
 
 };
 
-#endif //#define INCLUND_SLAYER_FRONTEND_H
+#endif //#define INCLUDED_SLAYER_FRONTEND_H
 

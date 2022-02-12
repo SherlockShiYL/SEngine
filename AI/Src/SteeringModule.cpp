@@ -4,7 +4,7 @@
 using namespace S;
 using namespace AI;
 
-SteeringModule::SteeringModule(Agent & agent)
+SteeringModule::SteeringModule(Agent& agent)
 	:mAgent(agent)
 {}
 
