@@ -26,11 +26,13 @@ C++
 
 ## Projects:
 - **EngineCodeTest:** Algorithms test project.
-   - Path Finding: JPS+A*
-- num_Hello* in class 3D project.
-- Marble: TCP LAN Game. There are server and client exe files.
+   - Path Finding: BFS, DFS, Dijkstra, A*, JPS+A*
+   - Quadtree vs Quadrant
 - **DriverSimulator:** Use NEAT to simulate drivers driving a car.
 - **GATravellingSalesman:** Practice of Genetic Algorithm.
+- **MapEditor:** 2D Tile Map Editor, implemented ImGui as Visual Menu. In progress...
+- num_Hello* in class 3D project.
+- Marble: TCP LAN Game. There are server and client exe files.
 - *RayTracing: Non-finished.*
 - *RTSGame: Non-finshed, Only one 3D Tank model inside.*
 - Slayer: 2D RPG game, in progress...
@@ -41,5 +43,4 @@ C++
   - Building
   - ...
 - *StaticRayTracing: Empty Project.*
-- **MapEditor:** 2D Tile Map Editor, implemented ImGui as Visual Menu. In progress...
 - ModelImporter: Import models from online source to personal model data.
