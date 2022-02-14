@@ -6,9 +6,6 @@
 class Frontend : public GameState
 {
 public:
-	Frontend();
-	~Frontend() override;
-
 	void Load() override;
 	void Unload() override;
 	Transition Update(float deltaTime) override;

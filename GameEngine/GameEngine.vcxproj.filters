@@ -19,6 +19,12 @@
     <Filter Include="Src\Services">
       <UniqueIdentifier>{6011b844-af37-4e71-b691-a55e2dd9fe14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\MenuSystem">
+      <UniqueIdentifier>{759d8bee-5146-4176-bab9-cd23faaf36d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\MenuSystem">
+      <UniqueIdentifier>{d38555b1-dbad-4824-84b9-e23d86cbd1ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Precompiled.h">
@@ -75,6 +81,15 @@
     <ClInclude Include="Inc\TileMap.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\MenuManager.h">
+      <Filter>Inc\MenuSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Menu.h">
+      <Filter>Inc\MenuSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MenuButton.h">
+      <Filter>Inc\MenuSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -121,6 +136,15 @@
     </ClCompile>
     <ClCompile Include="Src\TileMap.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MenuManager.cpp">
+      <Filter>Src\MenuSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Menu.cpp">
+      <Filter>Src\MenuSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MenuButton.cpp">
+      <Filter>Src\MenuSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

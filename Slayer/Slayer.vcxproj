@@ -179,8 +179,6 @@
     <ClCompile Include="GameObjects\Skills\ShivLighting.cpp" />
     <ClCompile Include="GameObjects\Skills\Skill.cpp" />
     <ClCompile Include="GameObjects\Source.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +204,6 @@
     <ClInclude Include="GameObjects\Skills\SkillList.h" />
     <ClInclude Include="GameObjects\Weapon.h" />
     <ClInclude Include="GameObjects\Source.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuButton.h" />
-    <ClInclude Include="MenuManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data\Home.txt" />

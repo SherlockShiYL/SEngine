@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Frontend.cpp" />
+    <ClCompile Include="MenuSystem.cpp" />
     <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="QuadtreeScene.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="Frontend.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="PathFinding.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="QuadtreeScene.h" />

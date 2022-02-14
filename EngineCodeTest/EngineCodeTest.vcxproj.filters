@@ -15,6 +15,9 @@
     <ClCompile Include="RedArrow.cpp">
       <Filter>QuadtreeScene</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSystem.cpp">
+      <Filter>MenuSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Frontend.h" />
@@ -31,6 +34,9 @@
     <ClInclude Include="RedArrow.h">
       <Filter>QuadtreeScene</Filter>
     </ClInclude>
+    <ClInclude Include="MenuSystem.h">
+      <Filter>MenuSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="sconfig.json" />
@@ -41,6 +47,9 @@
     </Filter>
     <Filter Include="PathFinding">
       <UniqueIdentifier>{2d7b6aa5-ddf2-41cf-a29d-f0274126e628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MenuSystem">
+      <UniqueIdentifier>{d0ad5565-f44c-4079-8eb6-7e76c9957703}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@ class AIQuadtree
 {
 public:
 	void Initialize(Geometry::Rect rect, uint32_t capacity);
+	void Terminate();
 
 	void RegisterAgent(Agent* agent);
 	void UnregisterAgent(Agent* agent);
@@ -23,6 +24,9 @@ public:
 	void Subdivide();
 	bool Insert(Agent* agent);
 	bool Insert(Entity* entity);
+	bool Erase(Agent* agent);
+	bool Erase(Entity* entity);
+
 	void QueryRange(AgentList& result, S::Geometry::Rect rect);
 	void QueryRange(AgentList& result, S::Geometry::Circle circle);
 	void QueryRange(EntityList& result, S::Geometry::Rect rect);
@@ -32,6 +36,7 @@ public:
 	void CheckValid(AgentList& result);
 	void CheckValid(EntityList& result);
 	void Update();
+	void DeleteEmptyQuadtrees();
 
 	void DebugRender(S::Math::Vector2 p = { 0.0f,0.0f });
 

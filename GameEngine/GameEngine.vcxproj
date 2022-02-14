@@ -165,6 +165,9 @@
     <ClInclude Include="Inc\GameEngine.h" />
     <ClInclude Include="Inc\GameObject.h" />
     <ClInclude Include="Inc\GameObjectFactory.h" />
+    <ClInclude Include="Inc\Menu.h" />
+    <ClInclude Include="Inc\MenuButton.h" />
+    <ClInclude Include="Inc\MenuManager.h" />
     <ClInclude Include="Inc\MetaRegistration.h" />
     <ClInclude Include="Inc\NavigationService.h" />
     <ClInclude Include="Inc\Quadtree.h" />
@@ -183,6 +186,9 @@
     <ClCompile Include="Src\GameApplication.cpp" />
     <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\GameObjectFactory.cpp" />
+    <ClCompile Include="Src\Menu.cpp" />
+    <ClCompile Include="Src\MenuButton.cpp" />
+    <ClCompile Include="Src\MenuManager.cpp" />
     <ClCompile Include="Src\MetaRegistration.cpp" />
     <ClCompile Include="Src\NavigationService.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">

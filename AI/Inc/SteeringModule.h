@@ -10,7 +10,7 @@ class SteeringModule
 {
 public:
 	SteeringModule(Agent& agent);
-	~SteeringModule();
+	//~SteeringModule();
 
 	template <class BehaviorType>
 	BehaviorType* AddBehavior();

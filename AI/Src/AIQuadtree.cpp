@@ -10,6 +10,20 @@ void AIQuadtree::Initialize(Geometry::Rect rect, uint32_t capacity)
 	mCapacity = capacity;
 }
 
+void AIQuadtree::Terminate()
+{
+	if (mTL)
+	{
+		mTL->Terminate();
+		mTR->Terminate();
+		mBL->Terminate();
+		mBR->Terminate();
+		DeleteEmptyQuadtrees();
+	}
+	mEntities.clear();
+	mAgents.clear();
+}
+
 void AIQuadtree::RegisterAgent(Agent* agent)
 {
 	Insert(agent);
@@ -93,7 +107,7 @@ bool AIQuadtree::Insert(Agent* agent)
 	}
 }
 
-bool S::AI::AIQuadtree::Insert(Entity* entity)
+bool AIQuadtree::Insert(Entity* entity)
 {
 	if (!S::Geometry::PointInRect(entity->Position(), mRect))
 		return false;
@@ -127,6 +141,58 @@ bool S::AI::AIQuadtree::Insert(Entity* entity)
 		}
 		return false;
 	}
+}
+
+bool AIQuadtree::Erase(Agent* agent)
+{
+	for (size_t i = 0; i < mAgents.size(); i++)
+	{
+		if (mAgents[i] == agent)
+		{
+			if (mAgents[i] != mAgents[mAgents.size() - 1])
+				std::swap(mAgents[i], mAgents[mAgents.size() - 1]);
+			mAgents.pop_back();
+			return true;
+		}
+	}
+
+	if (mTL)
+	{
+		if (!mTL->Erase(agent))
+			if (!mTR->Erase(agent))
+				if (!mBL->Erase(agent))
+					if (!mBR->Erase(agent))
+						return false;
+		DeleteEmptyQuadtrees();
+		return true;
+	}
+	return false;
+}
+
+bool AIQuadtree::Erase(Entity* entity)
+{
+	for (size_t i = 0; i < mEntities.size(); i++)
+	{
+		if (mEntities[i] == entity)
+		{
+			if (mEntities[i] != mEntities[mEntities.size() - 1])
+				std::swap(mEntities[i], mEntities[mEntities.size() - 1]);
+			mEntities.pop_back();
+			return true;
+		}
+	}
+
+	if (mTL)
+	{
+		if (!mTL->Erase(entity))
+			if (!mTR->Erase(entity))
+				if (!mBL->Erase(entity))
+					if (!mBR->Erase(entity))
+						return false;
+		DeleteEmptyQuadtrees();
+		return true;
+	}
+	return false;
 }
 
 void AIQuadtree::QueryRange(AgentList& result, Geometry::Rect rect)
@@ -237,14 +303,7 @@ void AIQuadtree::CheckValid(AgentList& result)
 		mTR->CheckValid(result);
 		mBL->CheckValid(result);
 		mBR->CheckValid(result);
-
-		if (mTL->Empty() && mTR->Empty() && mBL->Empty() && mBR->Empty())
-		{
-			SafeDelete(mTL);
-			SafeDelete(mTR);
-			SafeDelete(mBL);
-			SafeDelete(mBR);
-		}
+		DeleteEmptyQuadtrees();
 	}
 }
 
@@ -267,14 +326,7 @@ void AIQuadtree::CheckValid(EntityList& result)
 		mTR->CheckValid(result);
 		mBL->CheckValid(result);
 		mBR->CheckValid(result);
-
-		if (mTL->Empty() && mTR->Empty() && mBL->Empty() && mBR->Empty())
-		{
-			SafeDelete(mTL);
-			SafeDelete(mTR);
-			SafeDelete(mBL);
-			SafeDelete(mBR);
-		}
+		DeleteEmptyQuadtrees();
 	}
 }
 
@@ -292,6 +344,17 @@ void AIQuadtree::Update()
 	for (size_t i = 0; i < tempEntityList.size(); i++)
 	{
 		Insert(tempEntityList[i]);
+	}
+}
+
+void AIQuadtree::DeleteEmptyQuadtrees()
+{
+	if (mTL->Empty() && mTR->Empty() && mBL->Empty() && mBR->Empty())
+	{
+		SafeDelete(mTL);
+		SafeDelete(mTR);
+		SafeDelete(mBL);
+		SafeDelete(mBR);
 	}
 }
 

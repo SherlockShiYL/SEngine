@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "GameApplication.h"
+#include "MenuManager.h"
 
 #include <External/ImGui/Inc/imgui.h>
 
@@ -27,6 +28,7 @@ void GameApplication::OnInitialize()
 	SpriteRenderer::StaticInitialize();
 	TextureManager::StaticInitialize(Config::Get()->GetString("TexturePath", "../Assets/Images"));
 	Physics::ColliderManager::StaticInitialize();
+	MenuManager::StaticInitialize();
 
 	timer.Initialize();
 
@@ -39,6 +41,7 @@ void GameApplication::OnInitialize()
 
 void GameApplication::OnTerminate()
 {
+	MenuManager::StaticTerminate();
 	Physics::ColliderManager::StaticTerminate();
 	Font::StaticTerminate();
 	TextureManager::StaticTerminate();
@@ -90,7 +93,8 @@ void GameApplication::OnUpdate(bool(*GameLoop)(float))
 	Graphics::Render();
 
 	SimpleDraw::Render(mCamera);
-	
+	MenuManager::Get()->Render();
+
 	//ImGui::SetNextWindowPos({ 30.0f,30.0f });
 	//ImGui::Begin("Info", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
 

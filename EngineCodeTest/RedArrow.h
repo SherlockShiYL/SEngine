@@ -7,6 +7,11 @@ class RedArrow final :public S::AI::Agent
 {
 public:
 	RedArrow(S::AI::AIWorld& myWorld);
+	~RedArrow()
+	{
+		//mSteeringModule->Purge();
+		S::SafeDelete(mSteeringModule);
+	}
 
 	void Load();
 	float GetDirection();

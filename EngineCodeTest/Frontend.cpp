@@ -2,18 +2,8 @@
 
 using namespace S;
 
-Frontend::Frontend()
-{
-}
-
-Frontend::~Frontend()
-{
-
-}
-
 void Frontend::Load()
 {
-
 }
 
 void Frontend::Unload()
@@ -31,6 +21,10 @@ Transition Frontend::Update(float deltaTime)
 	if (ImGui::Button("Quadtree"))
 	{
 		nextState = Transition::GoToQuadtree;
+	}
+	if (ImGui::Button("Menu System"))
+	{
+		nextState = Transition::GoToMenuSystem;
 	}
 	if (ImGui::Button("Quit"))
 	{

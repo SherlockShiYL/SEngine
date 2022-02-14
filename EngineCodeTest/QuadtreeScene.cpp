@@ -39,6 +39,12 @@ void QuadtreeScene::Load()
 
 void QuadtreeScene::Unload()
 {
+	mQuadtree.Terminate();
+	for (size_t i = 0; i < redArrow.size(); i++)
+	{
+		SafeDelete(redArrow[i]);
+	}
+	redArrow.clear();
 }
 
 Transition QuadtreeScene::Update(float deltaTime)
@@ -78,7 +84,13 @@ Transition QuadtreeScene::Update(float deltaTime)
 	mQuadrantTotalTimeCost += std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 	mQuadrantAverageTimeCost = mQuadrantTotalTimeCost / (float)mRunCount;
 
-
+	if (input->IsMousePressed(Input::MouseButton::LBUTTON))
+	{
+		for (size_t i = 0; i < circleCollidedList.size(); i++)
+		{
+			mQuadtree.Erase(circleCollidedList[i]);
+		}
+	}
 
 	// ImGui
 	if (ImGui::Button("Seek Behavior"))

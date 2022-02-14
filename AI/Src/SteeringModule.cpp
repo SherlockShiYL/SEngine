@@ -8,10 +8,10 @@ SteeringModule::SteeringModule(Agent& agent)
 	:mAgent(agent)
 {}
 
-SteeringModule::~SteeringModule()
-{
-	ASSERT(mBehaviors.empty(), "[SteeringModule] has no behaviors");
-}
+//SteeringModule::~SteeringModule()
+//{
+//	ASSERT(mBehaviors.empty(), "[SteeringModule] has behaviors");
+//}
 
 void SteeringModule::Purge()
 {

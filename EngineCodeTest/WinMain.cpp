@@ -2,6 +2,7 @@
 #include "Frontend.h"
 #include "PathFinding.h"
 #include "QuadtreeScene.h"
+#include "MenuSystem.h"
 
 GameState* currentState = nullptr;
 Transition nextState = Transition::None;
@@ -41,6 +42,14 @@ bool GameLoop(float deltaTime)
 		currentState->Unload();
 		delete currentState;
 		currentState = new QuadtreeScene();
+		currentState->Load();
+		break;
+	}
+	case Transition::GoToMenuSystem:
+	{
+		currentState->Unload();
+		delete currentState;
+		currentState = new MenuSystem();
 		currentState->Load();
 		break;
 	}

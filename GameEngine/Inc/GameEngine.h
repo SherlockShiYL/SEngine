@@ -7,6 +7,11 @@
 #include "Component.h"
 #include "TransformComponent.h"
 
+// Menu System
+#include "Menu.h"
+#include "MenuButton.h"
+#include "MenuManager.h"
+
 // Services
 #include "NavigationService.h"
 #include "Service.h"

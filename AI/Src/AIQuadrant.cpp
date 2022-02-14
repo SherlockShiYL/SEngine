@@ -14,7 +14,7 @@ void AIQuadrant::RegisterAgent(Agent* agent)
 	if (agent->Position().x >= 0.0f && agent->Position().x <= static_cast<float>(mColumns)*mWidth
 		&& agent->Position().y >= 0.0f && agent->Position().y <= static_cast<float>(mRows)*mHeight)
 	{
-		mAgentLists[static_cast<int>(agent->Position().x*recipWidth) + (size_t)mRows * static_cast<int>(agent->Position().y*recipHeight)].push_back(agent);
+		mAgentLists[static_cast<int>(agent->Position().x*recipWidth) + (size_t)mColumns * static_cast<int>(agent->Position().y*recipHeight)].push_back(agent);
 	}
 	else
 	{
@@ -27,7 +27,7 @@ void AIQuadrant::UnregisterAgent(Agent* agent)
 	if (agent->Position().x >= 0.0f && agent->Position().x <= static_cast<float>(mColumns)*mWidth
 		&& agent->Position().y >= 0.0f && agent->Position().y <= static_cast<float>(mRows)*mHeight)
 	{
-		int index = static_cast<int>(agent->Position().x*recipWidth) + mRows * static_cast<int>(agent->Position().y*recipHeight);
+		int index = static_cast<int>(agent->Position().x*recipWidth) + mColumns * static_cast<int>(agent->Position().y*recipHeight);
 		auto iter = std::find(mAgentLists[index].begin(), mAgentLists[index].end(), agent);
 		if (iter != mAgentLists[index].end())
 		{
@@ -50,7 +50,7 @@ void AIQuadrant::RegisterEntity(Entity * entity)
 	if (entity->Position().x >= 0.0f && entity->Position().x <= static_cast<float>(mColumns)*mWidth
 		&& entity->Position().y >= 0.0f && entity->Position().y <= static_cast<float>(mRows)*mHeight)
 	{
-		mEntityLists[(size_t)(entity->Position().x*recipWidth) + (size_t)mRows * (size_t)(entity->Position().y*recipHeight)].push_back(entity);
+		mEntityLists[(size_t)(entity->Position().x*recipWidth) + (size_t)mColumns * (size_t)(entity->Position().y*recipHeight)].push_back(entity);
 	}
 	else
 	{
@@ -63,7 +63,7 @@ void AIQuadrant::UnregisterEntity(Entity * entity)
 	if (entity->Position().x >= 0.0f && entity->Position().x <= static_cast<float>(mColumns)*mWidth
 		&& entity->Position().y >= 0.0f && entity->Position().y <= static_cast<float>(mRows)*mHeight)
 	{
-		int index = static_cast<int>(entity->Position().x*recipWidth) + mRows * static_cast<int>(entity->Position().y*recipHeight);
+		int index = static_cast<int>(entity->Position().x*recipWidth) + mColumns * static_cast<int>(entity->Position().y*recipHeight);
 		auto iter = std::find(mEntityLists[index].begin(), mEntityLists[index].end(), entity);
 		if (iter != mEntityLists[index].end())
 		{
