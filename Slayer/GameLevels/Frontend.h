@@ -2,7 +2,6 @@
 #define INCLUDED_SLAYER_FRONTEND_H
 
 #include "GameState.h"
-#include "../MenuManager.h"
 
 class Frontend : public GameState
 {
@@ -17,7 +16,8 @@ public:
 
 private:
 	S::Input::InputSystem* input{ nullptr };
-	MenuManager menuManager;
+	S::MenuManager* menuManager;
+
 
 };
 

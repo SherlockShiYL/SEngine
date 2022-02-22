@@ -166,6 +166,11 @@ uint32_t GetScreenHeight()
 	return GraphicsSystem::Get()->GetHeight();
 }
 
+Geometry::Rect GetScreenRect()
+{
+	return { 0.0f,0.0f,(float)GetScreenWidth(),(float)GetScreenHeight() };
+}
+
 void Render()
 {
 	// Sprites

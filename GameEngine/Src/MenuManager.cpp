@@ -12,7 +12,6 @@ void MenuManager::StaticInitialize()
 {
 	ASSERT(sMenuManager == nullptr, "[GameEngine::MenuManager] Manager already initialized!");
 	sMenuManager = new MenuManager();
-	sMenuManager->Initialize();
 }
 
 void MenuManager::StaticTerminate()
@@ -34,11 +33,6 @@ void MenuManager::Insert(Menu& menu)
 	mMenuList.push_back(menu);
 }
 
-void MenuManager::Initialize()
-{
-	mScreenRect = Geometry::Rect(0.0f, 0.0f, (float)Graphics::GetScreenWidth(), (float)Graphics::GetScreenHeight());
-}
-
 void MenuManager::Render()
 {
 	for (auto& menu : mMenuList)
@@ -50,22 +44,42 @@ void MenuManager::Render()
 
 void MenuManager::Update(float deltaTime)
 {
+	CheckMouseIntersect();
 	for (auto& menu : mMenuList)
 	{
 		menu.Update(deltaTime);
 	}
 }
 
-bool MenuManager::CheckIntersect()
+void MenuManager::CheckMouseIntersect()
 {
-	for (size_t i = 0; i < mMenuList.size(); i++)
+	Math::Vector2 mouseScreenPos = { (float)Input::InputSystem::Get()->GetMouseScreenX(),(float)Input::InputSystem::Get()->GetMouseScreenY() };
+	for (int i = (int)mMenuList.size() - 1; i >= 0; i--)
 	{
-
+		mMenuList[i].CheckButtonsStatus(isMouseCollided);
+		if (isMouseCollided)
+		{
+			return;
+		}
+		else
+		{
+			if (mMenuList[i].GetCollidable() && Geometry::PointInRect(mouseScreenPos, mMenuList[i].GetRect()))
+			{
+				isMouseCollided = true;
+				return;
+			}
+		}
 	}
-	return false;
+	isMouseCollided = false;
+	return;
 }
 
 void MenuManager::Clear()
 {
 	mMenuList.clear();
+}
+
+bool MenuManager::IsMouseCollided() const
+{
+	return isMouseCollided;
 }

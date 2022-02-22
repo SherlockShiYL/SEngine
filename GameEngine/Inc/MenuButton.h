@@ -20,20 +20,27 @@ enum class AnchorColumn
 class MenuButton
 {
 public:
-	MenuButton(Geometry::Rect menuRect, float width, float height, Math::Vector2 position,
+	MenuButton(float menuWidth, float menuHeight, float width, float height, Math::Vector2 position,
 		AnchorRow ar, AnchorColumn ac, const char* texture, std::string str);
 
-	void Pressed()						{ mPressed = true; }
-	bool IsPressed() const				{ return mPressed; }
-	bool Active() const					{ return mActive; }
+	bool IsPressed() const;
+	bool Active() const;
 
 	const Geometry::Rect GetRect();
+	const Geometry::Rect GetRectInWorld(Math::Vector2 position);
 
 	void Render(Math::Vector2 position = { 0.0f,0.0f });
 
 protected:
-	bool mPressed{ false };
-	bool mActive{ false };
+	friend class Menu;
+	void SetPosition(Math::Vector2 position);
+	void SetPressed(bool pressed);
+	void SetCollided(bool collided);
+
+protected:
+	bool isPressed{ false }; // May not use this
+	bool isActive{ false };
+	bool isMouseCollided{ false };
 	Geometry::Rect mButtonRect;
 	Math::Vector2 mPosition;
 	Graphics::TextureId mId;

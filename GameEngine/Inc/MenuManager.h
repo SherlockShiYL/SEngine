@@ -16,15 +16,18 @@ public:
 	void Insert(Menu& menu);
 	//void AddNewMenu(float width, float height, Math::Vector2 position, AnchorRow ar, AnchorColumn ac);
 	//Menu GetMenu() { return mStartMenu; }
-	void Initialize();
 	void Render();
 	void Update(float deltaTime);
-	bool CheckIntersect();
 	void Clear();
 
+	bool IsMouseCollided() const;
+
 private:
-	Geometry::Rect mScreenRect;
+	void CheckMouseIntersect();
+
 	std::vector<Menu> mMenuList;
+	bool isMouseCollided{ false };
+	int currentMenuIndex{ -1 };
 
 };
 

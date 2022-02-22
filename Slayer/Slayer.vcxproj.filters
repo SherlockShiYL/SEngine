@@ -40,7 +40,6 @@
     <ClCompile Include="GameObjects\Buildings\Building.cpp">
       <Filter>GameObjects\Buildings</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjects\Source.cpp" />
     <ClCompile Include="GameObjects\Buildings\LoggingFarm.cpp">
       <Filter>GameObjects\Buildings</Filter>
     </ClCompile>
@@ -49,6 +48,9 @@
     </ClCompile>
     <ClCompile Include="GameObjects\AI\TinyBot.cpp">
       <Filter>GameObjects\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Source.cpp">
+      <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

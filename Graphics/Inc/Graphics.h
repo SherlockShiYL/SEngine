@@ -82,6 +82,7 @@ uint32_t GetSpriteWidth(TextureId textureId);
 uint32_t GetSpriteHeight(TextureId textureId);
 uint32_t GetScreenWidth();
 uint32_t GetScreenHeight();
+Geometry::Rect GetScreenRect();
 
 void Render();
 
