@@ -28,6 +28,7 @@ C++
 - **EngineCodeTest:** Algorithms test project.
    - Path Finding: BFS, DFS, Dijkstra, A*, JPS+A*
    - Quadtree vs Quadrant
+   - Menu Demo Test
 - **DriverSimulator:** Use NEAT to simulate drivers driving a car.
 - **GATravellingSalesman:** Practice of Genetic Algorithm.
 - **MapEditor:** 2D Tile Map Editor, implemented ImGui as Visual Menu. In progress...
