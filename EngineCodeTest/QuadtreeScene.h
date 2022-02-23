@@ -20,6 +20,8 @@ public:
 
 private:
 	S::Input::InputSystem* input{ nullptr };
+	bool mDrawQuadtree{ false };
+	bool mDrawQuadrant{ false };
 	int mode{ 0 };
 	int prevMode{ 0 };
 	int mRunCount{ 0 };

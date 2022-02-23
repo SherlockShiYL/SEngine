@@ -114,6 +114,8 @@ Transition QuadtreeScene::Update(float deltaTime)
 		SetMode(5);
 	}
 
+	ImGui::Checkbox("Draw Quadtree", &mDrawQuadtree);
+	ImGui::Checkbox("Draw Quadrant", &mDrawQuadrant);
 
 	// State
 	Transition nextState = Transition::None;
@@ -137,8 +139,11 @@ void QuadtreeScene::Render()
 	{
 		arrow->Render();
 	}
-	//aiWorld.GetQuadrant().DebugRender();
-	mQuadtree.DebugRender();
+
+	if (mDrawQuadrant)
+		aiWorld.GetQuadrant().DebugRender();
+	if(mDrawQuadtree)
+		mQuadtree.DebugRender();
 
 	Graphics::DrawScreenRect(mMouseRect, Math::Vector4::Cyan());
 	Graphics::DrawScreenCircle(mMouseCircle, Math::Vector4::Green());
