@@ -23,6 +23,16 @@ Slime::Slime(AI::AIWorld& aiworld, uint32_t type, uint32_t id, AttackProjectiles
 	mProjectiles = projectiles;
 
 	mId = Graphics::LoadTexture("Bot/Skeleton.png");
+
+	mSteeringModule = new AI::SteeringModule(*this);
+	mSeparationBehavior = mSteeringModule->AddBehavior<AI::SeparationBehavior>();
+	mSeparationBehavior->SetActive(true);
+}
+
+Slime::~Slime()
+{
+	mStateMachine->Purge();
+	mSteeringModule->Purge();
 }
 
 void Slime::CopyData(Slime& slime)
@@ -44,10 +54,6 @@ void Slime::CopyData(Slime& slime)
 
 	//Physics::CircleCollider mCollider(&mPosition, mRadius);
 	//Physics::AddCollider(mCollider, 0);
-
-	mSteeringModule = new AI::SteeringModule(*this);
-	mSeparationBehavior = mSteeringModule->AddBehavior<AI::SeparationBehavior>();
-	mSeparationBehavior->SetActive(true);
 
 }
 

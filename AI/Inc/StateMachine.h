@@ -37,7 +37,7 @@ namespace AI {
 	template <class AgentType>
 	StateMachine<AgentType>::~StateMachine()
 	{
-		XASSERT(mStates.empty(), "[StateMachine] Purge must be called before destruction.");
+		ASSERT(mStates.empty(), "[StateMachine] Purge must be called before destruction.");
 	}
 
 	template <class AgentType>

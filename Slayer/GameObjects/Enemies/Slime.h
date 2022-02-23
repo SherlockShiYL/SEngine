@@ -13,6 +13,7 @@ class Slime :public Character
 
 public:
 	Slime(S::AI::AIWorld& aiworld, uint32_t type, uint32_t id, AttackProjectiles* projectiles);
+	~Slime();
 
 	// Has pointer, not copyable
 	Slime(const Slime&) = delete;
@@ -53,8 +54,8 @@ private:
 	std::string mName{ "Slime" };
 	S::Graphics::TextureId mId;
 
-	S::AI::SteeringModule* mSteeringModule;
-	S::AI::SeparationBehavior* mSeparationBehavior;
+	S::AI::SteeringModule* mSteeringModule{ nullptr };
+	S::AI::SeparationBehavior* mSeparationBehavior{ nullptr };
 	//S::Physics::CircleCollider* mCollider;
 };
 

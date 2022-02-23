@@ -4,7 +4,7 @@
 using namespace S;
 
 MenuButton::MenuButton(float menuWidth, float menuHeight, float width, float height, Math::Vector2 position, AnchorRow ar, AnchorColumn ac, const char* texture, std::string str)
-	: mString{ str }, mAnchorRow{ ar }, mAnchorColumn{ ac }
+	: mButtonName{ str }, mAnchorRow{ ar }, mAnchorColumn{ ac }
 {
 	mId = Graphics::LoadTexture(texture);
 	switch (ar)
@@ -68,6 +68,11 @@ const Geometry::Rect MenuButton::GetRectInWorld(Math::Vector2 position)
 	return mButtonRect + position;
 }
 
+const std::string MenuButton::GetButtonName()
+{
+	return mButtonName;
+}
+
 void MenuButton::Render(Math::Vector2 position)
 {
 	if (!isMouseCollided)
@@ -75,14 +80,14 @@ void MenuButton::Render(Math::Vector2 position)
 		Graphics::DrawScreenCircle({ mPosition + position,3.0f }, Math::Vector4::Orange());
 		Graphics::DrawScreenRect(GetRect() + position, Math::Vector4::Orange());
 		Graphics::DrawSprite(mId, mPosition + position);
-		Graphics::DrawScreenText(mString.c_str(), mPosition + position, 10.0f, Math::Vector4::Orange());
+		Graphics::DrawScreenText(mButtonName.c_str(), mPosition + position, 10.0f, Math::Vector4::Orange());
 	}
 	else
 	{
 		Graphics::DrawScreenCircle({ mPosition + position,3.0f }, Math::Vector4::White());
 		Graphics::DrawScreenRect(GetRect() + position, Math::Vector4::White());
 		Graphics::DrawSprite(mId, mPosition + position);
-		Graphics::DrawScreenText(mString.c_str(), mPosition + position, 10.0f, Math::Vector4::White());
+		Graphics::DrawScreenText(mButtonName.c_str(), mPosition + position, 10.0f, Math::Vector4::White());
 	}
 }
 

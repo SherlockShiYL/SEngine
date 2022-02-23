@@ -49,6 +49,10 @@ public:
 	bool GetCollidable() const;
 	Geometry::Rect GetRect() const;
 
+protected:
+	friend class MenuManager;
+	const std::string GetCurrentButtonName();
+
 private:
 	void SetButtonsPosHorVert(Math::Vector2 startPosition, int maxColumn, int horizontalDir, int verticalDir, float horizontalGap, float verticalGap);
 	void SetButtonsPosVertHor(Math::Vector2 startPosition, int maxRow, int horizontalDir, int verticalDir, float horizontalGap, float verticalGap);

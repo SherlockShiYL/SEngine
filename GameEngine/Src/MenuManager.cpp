@@ -59,6 +59,7 @@ void MenuManager::CheckMouseIntersect()
 		mMenuList[i].CheckButtonsStatus(isMouseCollided);
 		if (isMouseCollided)
 		{
+			currentMenuIndex = i;
 			return;
 		}
 		else
@@ -66,10 +67,12 @@ void MenuManager::CheckMouseIntersect()
 			if (mMenuList[i].GetCollidable() && Geometry::PointInRect(mouseScreenPos, mMenuList[i].GetRect()))
 			{
 				isMouseCollided = true;
+				currentMenuIndex = i;
 				return;
 			}
 		}
 	}
+	currentMenuIndex = -1;
 	isMouseCollided = false;
 	return;
 }
@@ -77,6 +80,18 @@ void MenuManager::CheckMouseIntersect()
 void MenuManager::Clear()
 {
 	mMenuList.clear();
+}
+
+bool MenuManager::Pressed(const char* buttonName, Input::MouseButton mouseButton)
+{
+	if (Input::InputSystem::Get()->IsMousePressed(mouseButton) && isMouseCollided)
+	{
+		if (mMenuList[currentMenuIndex].GetCurrentButtonName().compare(buttonName) == 0)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 bool MenuManager::IsMouseCollided() const

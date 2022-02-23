@@ -12,9 +12,6 @@ class GameObjectManager;
 class Gameplay : public GameState
 {
 public:
-	Gameplay();
-	~Gameplay() override;
-
 	void Load() override;
 	void Unload() override;
 	Transition Update(float deltaTime) override;
@@ -52,7 +49,7 @@ private:
 
 	bool test{ false };
 
-	GameObjectManager* instance{ nullptr };
+	GameObjectManager* gameObjMgr{ nullptr };
 	S::Input::InputSystem* input{ nullptr };
 };
 

@@ -30,7 +30,6 @@ public:
 	static GameObjectManager* Get();
 
 public:
-	GameObjectManager() {};
 	~GameObjectManager();
 
 	void CreateEnemies(FILE* file);
@@ -64,11 +63,11 @@ private:
 
 	//Enemy ***mEnemies;
 	uint32_t numSlime{ 30 };
-	Slime **mSlime;
+	std::vector<Slime*> mSlimeList;
 	Player *mPlayer;
 	//TinyBot *mTinyBot;
 
-	ShivLighting *mShivLighting[SHIVLIGHTINGNUM]; // No Initialize yet, 20 is for testing
+	std::vector<ShivLighting*> mShivLighting;
 	AttackProjectiles mAttackProjectiles;
 
 	ServerDamageDisplayList mServerDamageDisplayList;

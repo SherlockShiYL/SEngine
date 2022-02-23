@@ -34,6 +34,14 @@ GameObjectManager::~GameObjectManager()
 			S::SafeDelete(mEnemies[i][j]);
 		}
 	}*/
+	for (size_t i = 0; i < mSlimeList.size(); i++)
+	{
+		SafeDelete(mSlimeList[i]);
+	}
+	for (size_t i = 0; i < mShivLighting.size(); i++)
+	{
+		SafeDelete(mShivLighting[i]);
+	}
 }
 
 //Network::ObjectFactory& GameObjectManager::GetFactory()
@@ -48,15 +56,19 @@ void GameObjectManager::CreateDefaultGameObjects()
 	mAttackProjectiles.Initialize();
 	mPlayer = new Player(aiWorld, &mAttackProjectiles, static_cast<int>(CharacterType::Player), 0);
 
-	for (uint32_t i = 0; i < 20; ++i)
+	mShivLighting.reserve(SHIVLIGHTINGNUM);
+	for (uint32_t i = 0; i < SHIVLIGHTINGNUM; ++i)
 	{
-		mShivLighting[i] = new ShivLighting();
+		ShivLighting* newShivLighting = new ShivLighting();
+		mShivLighting.push_back(newShivLighting);
 	}
 
-	mSlime = new Slime*[numSlime];
+	mSlimeList.reserve(numSlime);
 	for (uint32_t i = 0; i < numSlime; ++i)
 	{
-		mSlime[i] = new Slime(aiWorld, static_cast<int>(CharacterType::Slime), i, &mAttackProjectiles); // aiWorld would remember every enemy even the enemy is not active
+		// aiWorld would remember every enemy even the enemy is not active
+		Slime* newSlime = new Slime(aiWorld, static_cast<int>(CharacterType::Slime), i, &mAttackProjectiles);
+		mSlimeList.push_back(newSlime);
 	}
 
 	/*mLoggingFarm = new LoggingFarm(800, { 300.0f,300.0f }, 1, 20, 1.0f, 1.0f, { 0.0f,0.0f,100.0f,100.0f });
@@ -146,16 +158,16 @@ void GameObjectManager::CheckProjectileCollision()
 						{
 							for (uint32_t j = 0; j < t.amount; ++j)
 							{
-								if (mSlime[j]->IsActive())
+								if (mSlimeList[j]->IsActive())
 								{
-									if (S::Geometry::Intersect(S::Geometry::Circle{ mSlime[j]->GetPosition(),mSlime[j]->Radius() },
+									if (S::Geometry::Intersect(S::Geometry::Circle{ mSlimeList[j]->GetPosition(),mSlimeList[j]->Radius() },
 										mAttackProjectiles.GetAttackProjectiles()[i].GetRectInWorld()))
 									{
 										ServerDamageDisplay temp;
 										temp.mDamage = mAttackProjectiles.GetAttackProjectiles()[i].GetDamage();
-										temp.mPosition = mSlime[j]->GetPosition();
+										temp.mPosition = mSlimeList[j]->GetPosition();
 										mServerDamageDisplayList.push_back(temp);
-										mSlime[j]->ReduceHP(mAttackProjectiles.GetAttackProjectiles()[i].GetDamage());
+										mSlimeList[j]->ReduceHP(mAttackProjectiles.GetAttackProjectiles()[i].GetDamage());
 										mAttackProjectiles.GetAttackProjectiles()[i].Kill();
 										break;
 									}
@@ -197,9 +209,9 @@ void GameObjectManager::Update(float deltaTime)
 		{
 			for (uint32_t i = 0; i < t.amount; ++i)
 			{
-				if (mSlime[i]->IsActive())
+				if (mSlimeList[i]->IsActive())
 				{
-					mSlime[i]->Update(deltaTime);
+					mSlimeList[i]->Update(deltaTime);
 				}
 			}
 			break;
@@ -226,8 +238,8 @@ void GameObjectManager::Render(Math::Vector2 p, float scale)
 		{
 			for (uint32_t i = 0; i < t.amount; ++i)
 			{
-				if (mSlime[i]->IsActive())
-					mSlime[i]->Render(p, scale);
+				if (mSlimeList[i]->IsActive())
+					mSlimeList[i]->Render(p, scale);
 			}
 			break;
 		}
@@ -318,10 +330,10 @@ void GameObjectManager::CreateEnemies(FILE* file)
 
 					for (uint32_t i = 0; i < tempTypeNum.amount; ++i)
 					{
-						mSlime[i]->CopyData(slime);
-						mSlime[i]->Id() = i;
-						fscanf_s(file, "%f %f\n", &mSlime[i]->Position().x, &mSlime[i]->Position().y);
-						mSlime[i]->Wake();
+						mSlimeList[i]->CopyData(slime);
+						mSlimeList[i]->Id() = i;
+						fscanf_s(file, "%f %f\n", &mSlimeList[i]->Position().x, &mSlimeList[i]->Position().y);
+						mSlimeList[i]->Wake();
 					}
 				}
 				break;

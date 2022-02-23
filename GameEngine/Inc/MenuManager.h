@@ -20,6 +20,8 @@ public:
 	void Update(float deltaTime);
 	void Clear();
 
+	bool Pressed(const char* buttonName, Input::MouseButton mouseButton);
+
 	bool IsMouseCollided() const;
 
 private:

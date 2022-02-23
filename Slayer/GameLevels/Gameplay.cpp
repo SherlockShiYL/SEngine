@@ -7,29 +7,19 @@ namespace
 {
 	bool renderLine{ true };
 }
-
-Gameplay::Gameplay()
-{
-	input = Input::InputSystem::Get();
-}
-
-Gameplay::~Gameplay()
-{
-}
-
 void Gameplay::Load()
 {
+	input = Input::InputSystem::Get();
 	GameObjectManager::StaticInitialize();
-	Network::Initialize();
 
 	//tileMap.Load("IslandMap.txt", "IslandMap_Set.txt");
 	tileMap.Load("Data/Maps/ForestMap.txt", "Data/Maps/ForestMap_Set.txt");
 
 	// Could be a huge data
-	instance = GameObjectManager::Get();
+	gameObjMgr = GameObjectManager::Get();
 
-	instance->aiWorld.GetNavGraph().Init(tileMap.GetMapColumns(), tileMap.GetMapRows(), tileMap.GetTileSize());
-	instance->aiWorld.GetQuadrant().Initialize({ 1.0f,1.0f }, 1u, 1u);
+	gameObjMgr->aiWorld.GetNavGraph().Init(tileMap.GetMapColumns(), tileMap.GetMapRows(), tileMap.GetTileSize());
+	gameObjMgr->aiWorld.GetQuadrant().Initialize({ 1.0f,1.0f }, 1u, 1u);
 
 	// Load Blocks
 	for (int i = 0; i < tileMap.GetMapColumns(); ++i)
@@ -40,21 +30,21 @@ void Gameplay::Load()
 			//if ((tIndex > 11 && tIndex <= 20) || (tIndex > 33 && tIndex <= 38))
 			if (tIndex > 10)
 			{
-				instance->aiWorld.GetNavGraph().SetBlock(i, j);
+				gameObjMgr->aiWorld.GetNavGraph().SetBlock(i, j);
 			}
 		}
 	}
 
-	instance->CreateDefaultGameObjects();
+	gameObjMgr->CreateDefaultGameObjects();
 
-	instance->CreateEnemies("Data/Home.txt");
+	gameObjMgr->CreateEnemies("Data/Home.txt");
 
-	instance->GetPlayer()->LoadTexture();
-	instance->GetPlayer()->Wake();
-	//instance->CreateBase();
+	gameObjMgr->GetPlayer()->LoadTexture();
+	gameObjMgr->GetPlayer()->Wake();
+	//gameObjMgr->CreateBase();
 
 	sCommand.Clear();
-	/*Player newPlayer(instance->aiWorld, 0, 0);
+	/*Player newPlayer(gameObjMgr->aiWorld, 0, 0);
 	DataLoader::LoadPlayer("Data/Player.txt", newPlayer);
 
 	// Load Entities
@@ -70,7 +60,7 @@ void Gameplay::Load()
 void Gameplay::Unload()
 {
 	tileMap.Unload();
-	instance = nullptr;
+	gameObjMgr = nullptr;
 	GameObjectManager::StaticTerminate();
 }
 
@@ -84,12 +74,12 @@ Transition Gameplay::Update(float deltaTime)
 	// Damage Display!
 	RunDamageDisplay(deltaTime, mWorldPosition);
 
-	instance->Update(deltaTime);
+	gameObjMgr->Update(deltaTime);
 
 	// Input
 	PlayerInput();
 
-	instance->GetPlayer()->AddCommand(sCommand);
+	gameObjMgr->GetPlayer()->AddCommand(sCommand);
 
 	// TinyBot
 	/*if (test)
@@ -129,12 +119,12 @@ void Gameplay::Render()
 
 	tileMap.Render(mWorldPosition, mWorldScale, renderLine);
 
-	if (instance->GetPlayer()->IsActive())
+	if (gameObjMgr->GetPlayer()->IsActive())
 	{
-		instance->GetPlayer()->Render(mWorldPosition, mWorldScale);
+		gameObjMgr->GetPlayer()->Render(mWorldPosition, mWorldScale);
 	}
 
-	instance->Render(mWorldPosition, mWorldScale);
+	gameObjMgr->Render(mWorldPosition, mWorldScale);
 
 	/*for (auto& e : entityList)
 	{

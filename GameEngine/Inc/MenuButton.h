@@ -28,6 +28,7 @@ public:
 
 	const Geometry::Rect GetRect();
 	const Geometry::Rect GetRectInWorld(Math::Vector2 position);
+	const std::string GetButtonName();
 
 	void Render(Math::Vector2 position = { 0.0f,0.0f });
 
@@ -44,7 +45,7 @@ protected:
 	Geometry::Rect mButtonRect;
 	Math::Vector2 mPosition;
 	Graphics::TextureId mId;
-	std::string mString;
+	std::string mButtonName;
 	AnchorRow mAnchorRow{ AnchorRow::Center };
 	AnchorColumn mAnchorColumn{ AnchorColumn::Center };
 };

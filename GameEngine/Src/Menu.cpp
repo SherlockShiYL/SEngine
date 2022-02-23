@@ -217,6 +217,12 @@ void Menu::CheckMenuStatus(bool& isCollided)
 	}
 }
 
+const std::string Menu::GetCurrentButtonName()
+{
+	ASSERT(currentButtonIndex != -1, "Mouse doesn't collide with Button.");
+	return mButtons[currentButtonIndex].GetButtonName();
+}
+
 void Menu::Update(const float deltaTime)
 {
 
